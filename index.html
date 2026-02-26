@@ -1,14 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Защита от мошенников — Интерактивный справочник</title>
-    <meta property="og:title" content="🛡️ Проверь себя: не дай мошенникам шанс!">
-    <meta property="og:description" content="Интерактивный гид по безопасности: чат-бот, разбор схем обмана и тест на бдительность.">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://via.placeholder.com/1200x630.png?text=Stop+Scam+Guide">
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <style>
@@ -16,171 +12,127 @@
         :root {
             --dark-blue: #1a3a4a; --light-blue: #2c5aa0; --danger: #e74c3c;
             --warning: #f39c12; --success: #27ae60; --light-bg: #f8f9fa;
-            --white: #ffffff; --gray: #7f8c8d; --text: #2c3e50;
+            --white: #ffffff; --text: #2c3e50;
         }
-        body { font-family: system-ui, -apple-system, sans-serif; background-color: var(--light-bg); color: var(--text); line-height: 1.6; }
-        .header { background: linear-gradient(135deg, var(--dark-blue) 0%, var(--light-blue) 100%); color: var(--white); padding: 40px 20px; text-align: center; position: relative; }
-        .header-title { font-size: 2.2em; font-weight: bold; margin-bottom: 10px; }
-        .video-container { max-width: 500px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 3px solid rgba(255,255,255,0.3); }
-        .language-selector { position: absolute; top: 10px; right: 10px; display: flex; gap: 5px; }
-        .lang-btn { padding: 5px 10px; border: 1px solid var(--white); background: rgba(255,255,255,0.2); color: var(--white); border-radius: 4px; cursor: pointer; font-size: 0.8em; }
-        .nav-tabs { display: flex; overflow-x: auto; background: var(--white); border-bottom: 2px solid var(--light-blue); position: sticky; top: 0; z-index: 100; }
-        .nav-tab { padding: 15px 20px; border: none; background: none; cursor: pointer; white-space: nowrap; color: var(--gray); font-weight: bold; }
+        body { font-family: system-ui, -apple-system, sans-serif; background-color: var(--light-bg); color: var(--text); }
+        .header { background: linear-gradient(135deg, var(--dark-blue), var(--light-blue)); color: white; padding: 30px; text-align: center; }
+        .video-container { max-width: 450px; margin: 15px auto; border-radius: 12px; overflow: hidden; border: 2px solid white; }
+        .nav-tabs { display: flex; overflow-x: auto; background: white; sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--light-blue); }
+        .nav-tab { padding: 15px 20px; border: none; background: none; cursor: pointer; font-weight: bold; color: #7f8c8d; white-space: nowrap; }
         .nav-tab.active { color: var(--light-blue); border-bottom: 3px solid var(--light-blue); }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
         .section { display: none; }
         .section.active { display: block; }
-        .card { background: var(--white); border-radius: 8px; padding: 20px; margin-bottom: 15px; border-left: 5px solid var(--warning); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .hotline { background: var(--danger); color: white; padding: 20px; border-radius: 8px; text-align: center; }
-        .chatbot-icon { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: var(--light-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; cursor: pointer; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        .chatbot-window { position: fixed; bottom: 90px; right: 20px; width: 320px; height: 450px; background: white; border-radius: 12px; display: none; flex-direction: column; box-shadow: 0 5px 25px rgba(0,0,0,0.2); z-index: 1000; }
+        .card { background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-left: 5px solid var(--warning); }
+        .chatbot-icon { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: var(--light-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; cursor: pointer; z-index: 1000; }
+        .chatbot-window { position: fixed; bottom: 90px; right: 20px; width: 320px; height: 450px; background: white; border-radius: 12px; box-shadow: 0 5px 25px rgba(0,0,0,0.2); display: none; flex-direction: column; z-index: 1000; }
         .chatbot-window.open { display: flex; }
-        .chatbot-header { background: var(--light-blue); color: white; padding: 15px; border-radius: 12px 12px 0 0; display: flex; justify-content: space-between; }
-        .chatbot-messages { flex: 1; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
-        .message { padding: 8px 12px; border-radius: 8px; max-width: 80%; font-size: 0.9em; }
-        .message.bot { background: #eee; align-self: flex-start; }
-        .message.user { background: var(--light-blue); color: white; align-self: flex-end; }
-        .chatbot-input { display: flex; padding: 10px; border-top: 1px solid #ddd; }
-        .chatbot-input input { flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
         .qr-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; align-items: center; justify-content: center; }
         .qr-modal.open { display: flex; }
-        .qr-content { background: white; padding: 20px; border-radius: 10px; text-align: center; }
         body.rtl { direction: rtl; }
     </style>
 </head>
-<body id="body">
+<body id="mainBody">
 
-    <div class="header">
-        <div class="language-selector">
-            <button class="lang-btn" onclick="setLang('ru')">РУС</button>
-            <button class="lang-btn" onclick="setLang('en')">ENG</button>
-            <button class="lang-btn" onclick="setLang('he')">עברית</button>
-        </div>
-        <div class="header-title" id="main-title">Защита от мошенников</div>
-        <p class="header-subtitle" id="main-subtitle">Справочник и рекомендации для всех возрастов</p>
-        
-        <div class="video-container">
-            <video width="100%" autoplay loop muted playsinline>
-                <source src="site_shield.mp4" type="video/mp4">
-            </video>
-        </div>
+<div class="header">
+    <h1>Защита от мошенников</h1>
+    <p>Интерактивный справочник по безопасности</p>
+    <div class="video-container">
+        <video width="100%" autoplay loop muted playsinline>
+            <source src="site_shield.mp4" type="video/mp4">
+        </video>
     </div>
+</div>
 
-    <div class="nav-tabs">
-        <button class="nav-tab active" onclick="showSection('types')" id="tab-types">📱 Типы</button>
-        <button class="nav-tab" onclick="showSection('signs')" id="tab-signs">🔍 Признаки</button>
-        <button class="nav-tab" onclick="showSection('help')" id="tab-help">🆘 Что делать</button>
-        <button class="nav-tab" onclick="showSection('quiz')" id="tab-quiz">❓ Тест</button>
-    </div>
+<div class="nav-tabs">
+    <button class="nav-tab active" onclick="openSect('types')">📱 Типы</button>
+    <button class="nav-tab" onclick="openSect('signs')">🔍 Признаки</button>
+    <button class="nav-tab" onclick="openSect('schemes')">⚠️ Схемы</button>
+    <button class="nav-tab" onclick="openSect('protect')">🛡️ Защита</button>
+    <button class="nav-tab" onclick="openSect('help')">🆘 Помощь</button>
+    <button class="nav-tab" onclick="openSect('test')">❓ Тест</button>
+</div>
 
-    <div class="container">
-        <section id="types" class="section active">
-            <div class="card">
-                <h3 id="type1-h">Телефонные звонки</h3>
-                <p id="type1-p">Мошенники представляются сотрудниками банков или полиции.</p>
-            </div>
-            <div class="card">
-                <h3 id="type2-h">Фишинг (Ссылки)</h3>
-                <p id="type2-p">Поддельные сайты для кражи ваших паролей и данных карт.</p>
-            </div>
-        </section>
+<div class="container">
+    <section id="types" class="section active">
+        <div class="card"><h3>Телефонные звонки</h3><p>Мошенники подменяют номера и пугают "проблемами в банке".</p></div>
+        <div class="card"><h3>Фишинг</h3><p>Ссылки на поддельные сайты банков и маркетплейсов.</p></div>
+    </section>
 
-        <section id="signs" class="section">
-            <div class="card" style="border-left-color: var(--danger);">
-                <h3 id="sign1-h">Срочность и паника</h3>
-                <p id="sign1-p">Вас заставляют принять решение немедленно, пугая потерей денег.</p>
-            </div>
-            <div class="card" style="border-left-color: var(--danger);">
-                <h3 id="sign2-h">Запрос секретных кодов</h3>
-                <p id="sign2-p">Настоящий банк никогда не спросит ваш SMS-код или пароль.</p>
-            </div>
-        </section>
+    <section id="signs" class="section">
+        <div class="card" style="border-left-color: var(--danger);"><h3>Срочность</h3><p>Вас торопят, чтобы вы не успели подумать.</p></div>
+        <div class="card" style="border-left-color: var(--danger);"><h3>Просьба о кодах</h3><p>Требуют пароли из СМС или CVV-коды карт.</p></div>
+    </section>
 
-        <section id="help" class="section">
-            <div class="hotline">
-                <h2 id="help-h">Экстренная помощь</h2>
-                <div style="margin: 15px 0;">
-                    <p>РФ: 8-800-700-40-30 <button onclick="showQR('tel:88007004030')" style="padding: 5px 10px; cursor: pointer;">QR</button></p>
-                    <p>Израиль: 100 <button onclick="showQR('tel:100')" style="padding: 5px 10px; cursor: pointer;">QR</button></p>
-                </div>
-            </div>
-        </section>
+    <section id="schemes" class="section">
+        <div class="card"><h3>"Ваш сын в беде"</h3><p>Классическая схема с требованием денег за "решение проблем".</p></div>
+        <div class="card"><h3>Госуслуги</h3><p>Кража аккаунта через просьбу продиктовать код подтверждения.</p></div>
+    </section>
 
-        <section id="quiz" class="section">
-            <div class="card">
-                <p id="q1">Вам звонят из «службы безопасности» и просят код из SMS. Ваши действия?</p>
-                <button class="lang-btn" style="color: black; border-color: gray; display: block; width: 100%; margin: 10px 0;" onclick="alert('Верно! Положите трубку.')" id="q1-a1">Сбросить звонок</button>
-                <button class="lang-btn" style="color: black; border-color: gray; display: block; width: 100%;" onclick="alert('Опасно! Никогда не говорите код.')" id="q1-a2">Назвать код</button>
-            </div>
-        </section>
-    </div>
+    <section id="protect" class="section">
+        <div class="card" style="border-left-color: var(--success);"><h3>Двухфакторная защита</h3><p>Включите вход по коду в Telegram и WhatsApp.</p></div>
+        <div class="card" style="border-left-color: var(--success);"><h3>Лимиты на карту</h3><p>Установите лимит на онлайн-покупки в приложении банка.</p></div>
+    </section>
 
-    <div class="chatbot-icon" onclick="toggleChat()">💬</div>
-    <div class="chatbot-window" id="chatWindow">
-        <div class="chatbot-header">
-            <span>Помощник</span>
-            <span onclick="toggleChat()" style="cursor:pointer">✖</span>
+    <section id="help" class="section">
+        <div class="card" style="border-left-color: var(--danger); text-align: center;">
+            <h2>Куда звонить?</h2>
+            <p>РФ: 8-800-700-40-30 <button onclick="makeQR('tel:88007004030')">QR</button></p>
+            <p>Израиль: 100 <button onclick="makeQR('tel:100')">QR</button></p>
         </div>
-        <div class="chatbot-messages" id="chatMsgs">
-            <div class="message bot">Здравствуйте! Опишите подозрительную ситуацию, и я дам совет.</div>
+    </section>
+
+    <section id="test" class="section">
+        <div class="card">
+            <p>Вам звонит "следователь" и говорит перевести деньги. Поверите?</p>
+            <button onclick="alert('Верно!')" style="padding: 10px; width: 100%; margin: 5px 0;">Положу трубку</button>
+            <button onclick="alert('Опасно!')" style="padding: 10px; width: 100%;">Сделаю как он говорит</button>
         </div>
-        <div class="chatbot-input">
-            <input type="text" id="chatInput" placeholder="Введите сообщение...">
-            <button onclick="sendMsg()" style="padding: 5px 10px;">➔</button>
-        </div>
+    </section>
+</div>
+
+<div class="chatbot-icon" onclick="toggleC()">💬</div>
+<div class="chatbot-window" id="cWin">
+    <div style="background:var(--light-blue); color:white; padding:15px; display:flex; justify-content:space-between;">
+        <span>Бот-помощник</span>
+        <span onclick="toggleC()" style="cursor:pointer">✖</span>
     </div>
-
-    <div class="qr-modal" id="qrModal" onclick="closeQR()">
-        <div class="qr-content" onclick="event.stopPropagation()">
-            <div id="qrcode"></div>
-            <p style="margin-top:10px">Отсканируйте для звонка</p>
-            <button onclick="closeQR()" style="margin-top:10px; padding: 5px 15px;">Закрыть</button>
-        </div>
+    <div id="cMsgs" style="flex:1; padding:10px; overflow-y:auto;"></div>
+    <div style="display:flex; padding:10px; border-top:1px solid #ddd;">
+        <input type="text" id="cIn" style="flex:1; padding:8px;" placeholder="Ваш вопрос...">
+        <button onclick="sendC()" style="padding:5px 10px;">➔</button>
     </div>
+</div>
 
-    <script>
-        function showSection(id) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
+<div class="qr-modal" id="qMod" onclick="this.classList.remove('open')">
+    <div style="background:white; padding:20px; border-radius:10px; text-align:center;" onclick="event.stopPropagation()">
+        <div id="qrCode"></div>
+        <button onclick="document.getElementById('qMod').classList.remove('open')" style="margin-top:10px;">Закрыть</button>
+    </div>
+</div>
 
-        function toggleChat() { document.getElementById('chatWindow').classList.toggle('open'); }
-
-        function sendMsg() {
-            const input = document.getElementById('chatInput');
-            const msgs = document.getElementById('chatMsgs');
-            if(!input.value) return;
-
-            msgs.innerHTML += `<div class="message user">${input.value}</div>`;
-            const text = input.value.toLowerCase();
-            let reply = "Я не совсем понял. Если ситуация касается денег, просто положите трубку.";
-            
-            if(text.includes("звон") || text.includes("банк")) reply = "Никому не называйте коды из СМС. Повесьте трубку и сами позвоните в банк.";
-            if(text.includes("пароль") || text.includes("карт")) reply = "Срочно заблокируйте карту через приложение, если ввели данные на чужом сайте.";
-            
-            setTimeout(() => {
-                msgs.innerHTML += `<div class="message bot">${reply}</div>`;
-                msgs.scrollTop = msgs.scrollHeight;
-            }, 500);
-            input.value = "";
-        }
-
-        function showQR(text) {
-            document.getElementById('qrModal').classList.add('open');
-            document.getElementById('qrcode').innerHTML = "";
-            new QRCode(document.getElementById("qrcode"), { text: text, width: 128, height: 128 });
-        }
-        function closeQR() { document.getElementById('qrModal').classList.remove('open'); }
-
-        function setLang(lang) {
-            const b = document.getElementById('body');
-            b.classList.toggle('rtl', lang === 'he');
-            // Здесь можно добавить логику смены текстов через объект переводов
-            alert("Язык изменен на: " + lang);
-        }
-    </script>
+<script>
+    function openSect(id) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        event.target.classList.add('active');
+    }
+    function toggleC() { document.getElementById('cWin').classList.toggle('open'); }
+    function sendC() {
+        const inp = document.getElementById('cIn');
+        const ms = document.getElementById('cMsgs');
+        if(!inp.value) return;
+        ms.innerHTML += `<div style="text-align:right; margin:5px;">${inp.value}</div>`;
+        setTimeout(() => { ms.innerHTML += `<div style="background:#eee; padding:5px; border-radius:5px; margin:5px;">Никому не говорите код из СМС!</div>`; ms.scrollTop = ms.scrollHeight; }, 500);
+        inp.value = "";
+    }
+    function makeQR(t) {
+        document.getElementById('qMod').classList.add('open');
+        document.getElementById('qrCode').innerHTML = "";
+        new QRCode(document.getElementById("qrCode"), { text: t, width: 128, height: 128 });
+    }
+</script>
 </body>
 </html>
 
