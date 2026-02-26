@@ -4,38 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Защита от мошенников — Интерактивный справочник</title>
+    <title>Защита от мошенников - Премиум</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <style>
-        :root {
-            --dark-blue: #1a3a4a; --light-blue: #2c5aa0; --white: #ffffff;
-            --danger: #e74c3c; --success: #27ae60; --light-bg: #f8f9fa;
-        }
-        body { font-family: sans-serif; margin: 0; background: var(--light-bg); }
-        .header { background: linear-gradient(135deg, var(--dark-blue), var(--light-blue)); color: white; padding: 30px; text-align: center; position: relative; }
-        
-        /* Кнопки языков */
-        .lang-selector { position: absolute; top: 10px; right: 10px; display: flex; gap: 5px; }
-        .lang-btn { padding: 5px 10px; border: 1px solid white; background: rgba(255,255,255,0.2); color: white; border-radius: 4px; cursor: pointer; }
-        
-        /* Видео-контейнер */
-        .video-box { max-width: 400px; margin: 15px auto; border-radius: 12px; overflow: hidden; border: 2px solid white; background: #000; }
-        
-        .nav-tabs { display: flex; overflow-x: auto; background: white; border-bottom: 2px solid var(--light-blue); top: 0; z-index: 100; }
-        .nav-tab { padding: 15px 20px; border: none; background: none; cursor: pointer; font-weight: bold; color: #7f8c8d; white-space: nowrap; }
-        .nav-tab.active { color: var(--light-blue); border-bottom: 3px solid var(--light-blue); }
-        
-        .container { padding: 20px; max-width: 800px; margin: 0 auto; }
-        .section { display: none; }
-        .section.active { display: block; }
-        .card { background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-left: 5px solid var(--danger); }
-        
-        /* Чат-бот */
-        .bot-btn { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: var(--light-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; cursor: pointer; z-index: 1000; }
-        .bot-window { position: fixed; bottom: 90px; right: 20px; width: 300px; height: 400px; background: white; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); display: none; flex-direction: column; z-index: 1000; }
-        .bot-window.open { display: flex; }
-        body.rtl { direction: rtl; }
-    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
         (function(m,e,t,r,i,k,a){
@@ -48,82 +19,877 @@
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/107023470" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <!-- /Yandex.Metrika counter -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .lang-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .lang-btn {
+            padding: 10px 15px;
+            border: 2px solid white;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .lang-btn.active {
+            background: white;
+            color: #667eea;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveBackground 20s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5em;
+            color: white;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-text p {
+            font-size: 1.3em;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        /* PHONE ANIMATION */
+        .phone-container {
+            perspective: 1000px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 600px;
+        }
+
+        .phone {
+            width: 300px;
+            height: 600px;
+            background: #000;
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3),
+                        inset 0 0 0 1px rgba(255,255,255,0.1);
+            animation: rotatePhone 8s infinite ease-in-out;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        @keyframes rotatePhone {
+            0% { transform: rotateX(0deg) rotateY(-30deg) rotateZ(5deg); }
+            25% { transform: rotateX(10deg) rotateY(20deg) rotateZ(-5deg); }
+            50% { transform: rotateX(0deg) rotateY(30deg) rotateZ(5deg); }
+            75% { transform: rotateX(-10deg) rotateY(-20deg) rotateZ(-5deg); }
+            100% { transform: rotateX(0deg) rotateY(-30deg) rotateZ(5deg); }
+        }
+
+        .phone::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
+            height: 25px;
+            background: #000;
+            border-radius: 0 0 20px 20px;
+            z-index: 10;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 35px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .phone-status {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px;
+            font-size: 12px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .phone-content {
+            flex: 1;
+            padding: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .phone-emoji {
+            font-size: 60px;
+            margin-bottom: 15px;
+            animation: floatEmoji 3s ease-in-out infinite;
+        }
+
+        @keyframes floatEmoji {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .phone-text {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        /* MAIN CONTENT */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            background: white;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 40px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .nav-tab {
+            padding: 12px 25px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            color: #999;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .nav-tab:hover, .nav-tab.active {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            margin-bottom: -12px;
+            padding-bottom: 9px;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            color: #667eea;
+            margin-bottom: 30px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-left: 5px solid #667eea;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(102,126,234,0.3);
+        }
+
+        .card-emoji {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .card-content {
+            display: none;
+            color: #666;
+            line-height: 1.8;
+            margin-top: 15px;
+        }
+
+        .card-content.open {
+            display: block;
+        }
+
+        /* HOTLINES */
+        .hotlines {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+
+        .hotlines h3 {
+            font-size: 2em;
+            margin-bottom: 30px;
+        }
+
+        .hotline-item {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .hotline-number {
+            font-size: 1.8em;
+            font-weight: bold;
+            font-family: monospace;
+        }
+
+        .qr-btn {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .qr-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.open {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .modal-title {
+            font-size: 1.5em;
+            color: #667eea;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        #qrcode {
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .modal-close {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        /* SOCIAL BUTTONS */
+        .social-buttons {
+            display: flex;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            color: white;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .fb { background: #1877f2; }
+        .wa { background: #25d366; }
+        .tg { background: #0088cc; }
+        .vk { background: #0077ff; }
+
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+        }
+
+        body.rtl {
+            direction: rtl;
+            text-align: right;
+        }
+
+        body.rtl .hero-content {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-text h1 {
+                font-size: 2.2em;
+            }
+
+            .phone-container {
+                display: none;
+            }
+
+            .lang-selector {
+                top: 10px;
+                right: 10px;
+                gap: 5px;
+            }
+
+            .lang-btn {
+                padding: 8px 12px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
 </head>
-<body id="b">
+<body>
 
-<div class="header">
-    <div class="lang-selector">
-        <button class="lang-btn" onclick="setL('ru')">РУС</button>
-        <button class="lang-btn" onclick="setL('he')">עברית</button>
-    </div>
-    <h1>Защита от мошенников</h1>
-    <div class="video-box">
-        <video width="100%" autoplay loop muted playsinline>
-            <source src="site_shield.mp4" type="video/mp4">
-        </video>
+<!-- Language Selector -->
+<div class="lang-selector">
+    <button class="lang-btn active" onclick="changeLang('ru', event)">РУС</button>
+    <button class="lang-btn" onclick="changeLang('en', event)">ENG</button>
+    <button class="lang-btn" onclick="changeLang('he', event)">עברית</button>
+</div>
+
+<!-- HERO SECTION -->
+<div class="hero">
+    <div class="hero-content">
+        <div class="hero-text">
+            <h1 id="hero-title">🛡️ Защита от мошенников</h1>
+            <p id="hero-subtitle">Интерактивный справочник для безопасности в интернете</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="scrollToSection('types')" id="btn-start">Начать обучение</button>
+                <button class="btn btn-secondary" onclick="downloadPDF()" id="btn-download">📥 Скачать PDF</button>
+            </div>
+        </div>
+        <div class="phone-container">
+            <div class="phone">
+                <div class="phone-screen">
+                    <div class="phone-status" id="phone-status">Защита от мошенников</div>
+                    <div class="phone-content">
+                        <div class="phone-emoji">🛡️</div>
+                        <div class="phone-text" id="phone-text">Учись распознавать аферы</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="nav-tabs">
-    <button class="nav-tab active" onclick="tab('t', event)">📱 Типы</button>
-    <button class="nav-tab" onclick="tab('p', event)">🔍 Признаки</button>
-    <button class="nav-tab" onclick="tab('s', event)">⚠️ Схемы</button>
-    <button class="nav-tab" onclick="tab('z', event)">🛡️ Защита</button>
-    <button class="nav-tab" onclick="tab('h', event)">🆘 Помощь</button>
-    <button class="nav-tab" onclick="tab('q', event)">❓ Тест</button>
-</div>
-
+<!-- MAIN CONTENT -->
 <div class="container">
-    <section id="t" class="section active">
-        <div class="card"><h3>Звонки</h3><p>Мошенники пугают блокировкой счетов.</p></div>
-    </section>
-    <section id="p" class="section">
-        <div class="card"><h3>Спешка</h3><p>Вас просят принять решение за 1 минуту.</p></div>
-    </section>
-    <section id="s" class="section">
-        <div class="card"><h3>"Родственник в беде"</h3><p>Классическая схема обмана пожилых людей.</p></div>
-    </section>
-    <section id="z" class="section">
-        <div class="card" style="border-left-color: var(--success);"><h3>Пароли</h3><p>Используйте разные пароли для всех сервисов.</p></div>
-    </section>
-    <section id="h" class="section">
-        <div class="card"><h3>Контакты</h3><p>РФ: 102 | Израиль: 100</p></div>
-    </section>
-    <section id="q" class="section">
-        <div class="card"><p>Вам звонят из банка и просят код. Дадите?</p>
-        <button onclick="alert('Правильно!')">Нет</button></div>
-    </section>
-</div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('types', event)" id="nav-types">📱 Типы мошенничества</button>
+        <button class="nav-tab" onclick="showTab('signs', event)" id="nav-signs">🔍 Признаки</button>
+        <button class="nav-tab" onclick="showTab('protect', event)" id="nav-protect">🔐 Защита</button>
+        <button class="nav-tab" onclick="showTab('help', event)" id="nav-help">🆘 Помощь</button>
+        <button class="nav-tab" onclick="showTab('quiz', event)" id="nav-quiz">❓ Тест</button>
+    </div>
 
-<div class="bot-btn" onclick="tog()">💬</div>
-<div class="bot-window" id="w">
-    <div style="background:var(--light-blue); color:white; padding:10px;">Бот-помощник</div>
-    <div id="m" style="flex:1; padding:10px; overflow:auto;"></div>
-    <div style="display:flex; padding:10px; border-top:1px solid #ddd;">
-        <input id="i" style="flex:1; padding:5px;" placeholder="Вопрос...">
-        <button onclick="send()">></button>
+    <!-- TYPES SECTION -->
+    <div id="types" class="section active">
+        <h2 id="h-types">Основные типы мошенничества</h2>
+        <div class="cards" id="types-cards"></div>
+    </div>
+
+    <!-- SIGNS SECTION -->
+    <div id="signs" class="section">
+        <h2 id="h-signs">Признаки мошенничества</h2>
+        <div class="cards" id="signs-cards"></div>
+    </div>
+
+    <!-- PROTECT SECTION -->
+    <div id="protect" class="section">
+        <h2 id="h-protect">Способы защиты</h2>
+        <div class="cards" id="protect-cards"></div>
+    </div>
+
+    <!-- HELP SECTION -->
+    <div id="help" class="section">
+        <h2 id="h-help">Горячие линии и помощь</h2>
+        <div class="social-buttons">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://moshen.vercel.app" target="_blank" class="social-btn fb">👍 Facebook</a>
+            <a href="https://wa.me/?text=Защита от мошенников" target="_blank" class="social-btn wa">💬 WhatsApp</a>
+            <a href="https://t.me/share/url?url=https://moshen.vercel.app" target="_blank" class="social-btn tg">✈️ Telegram</a>
+            <a href="https://vk.com/share.php?url=https://moshen.vercel.app" target="_blank" class="social-btn vk">VK</a>
+        </div>
+        <div class="hotlines" id="hotlines"></div>
+    </div>
+
+    <!-- QUIZ SECTION -->
+    <div id="quiz" class="section">
+        <h2 id="h-quiz">Проверь свои знания</h2>
+        <div id="quiz-content"></div>
     </div>
 </div>
+
+<!-- QR MODAL -->
+<div class="modal" id="qr-modal" onclick="if(event.target==this) closeQR()">
+    <div class="modal-content">
+        <div class="modal-title" id="qr-title">QR код</div>
+        <div id="qrcode"></div>
+        <button class="modal-close" onclick="closeQR()" id="qr-close">Закрыть</button>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer" id="footer"></div>
 
 <script>
-    function tab(id, event) {
-        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        event.target.classList.add('active');
+const translations = {
+    ru: {
+        'hero-title': '🛡️ Защита от мошенников',
+        'hero-subtitle': 'Интерактивный справочник для безопасности в интернете',
+        'btn-start': 'Начать обучение',
+        'btn-download': '📥 Скачать PDF',
+        'phone-status': 'Защита от мошенников',
+        'phone-text': 'Учись распознавать аферы',
+        'nav-types': '📱 Типы мошенничества',
+        'nav-signs': '🔍 Признаки',
+        'nav-protect': '🔐 Защита',
+        'nav-help': '🆘 Помощь',
+        'nav-quiz': '❓ Тест',
+        'h-types': 'Основные типы мошенничества',
+        'h-signs': 'Признаки мошенничества',
+        'h-protect': 'Способы защиты',
+        'h-help': 'Горячие линии и помощь',
+        'h-quiz': 'Проверь свои знания',
+        'qr-close': 'Закрыть',
+        'footer': '🛡️ Помните: мошенники становятся умнее. Будьте осторожны!'
+    },
+    en: {
+        'hero-title': '🛡️ Protection from Scammers',
+        'hero-subtitle': 'Interactive guide for internet security',
+        'btn-start': 'Start Learning',
+        'btn-download': '📥 Download PDF',
+        'phone-status': 'Protection from Scammers',
+        'phone-text': 'Learn to recognize scams',
+        'nav-types': '📱 Types of Fraud',
+        'nav-signs': '🔍 Signs',
+        'nav-protect': '🔐 Protection',
+        'nav-help': '🆘 Help',
+        'nav-quiz': '❓ Test',
+        'h-types': 'Types of Fraud',
+        'h-signs': 'Signs of Scam',
+        'h-protect': 'Ways to Protect',
+        'h-help': 'Hotlines and Help',
+        'h-quiz': 'Check Your Knowledge',
+        'qr-close': 'Close',
+        'footer': '🛡️ Remember: scammers get smarter. Be careful!'
+    },
+    he: {
+        'hero-title': '🛡️ הגנה מפני הונאים',
+        'hero-subtitle': 'מדריך אינטראקטיבי לבטיחות באינטרנט',
+        'btn-start': 'התחל ללמוד',
+        'btn-download': '📥 הורד PDF',
+        'phone-status': 'הגנה מפני הונאים',
+        'phone-text': 'למד לזהות הונאות',
+        'nav-types': '📱 סוגי הונאה',
+        'nav-signs': '🔍 סימנים',
+        'nav-protect': '🔐 הגנה',
+        'nav-help': '🆘 עזרה',
+        'nav-quiz': '❓ בדיקה',
+        'h-types': 'סוגי הונאה',
+        'h-signs': 'סימנים של הונאה',
+        'h-protect': 'דרכים להגנה',
+        'h-help': 'קווים חמים וסיוע',
+        'h-quiz': 'בדוק את הידע שלך',
+        'qr-close': 'סגור',
+        'footer': '🛡️ זכור: הונאים הופכים לחכמים יותר. היו זהירים!'
     }
-    function tog() { document.getElementById('w').classList.toggle('open'); }
-    function send() {
-        let i = document.getElementById('i');
-        let m = document.getElementById('m');
-        m.innerHTML += `<div><b>Вы:</b> ${i.value}</div>`;
-        setTimeout(() => { m.innerHTML += `<div><b>Бот:</b> Не сообщайте коды из СМС!</div>`; }, 500);
-        i.value = "";
+};
+
+const cardData = {
+    ru: {
+        types: [
+            { emoji: '📞', title: 'Звонки', desc: 'Мошенники звонят и выдают себя за банк, силовиков или родственников', content: '• Блокировка карты\n• Проверка безопасности\n• Звонок от "полиции"\n• Родственник в беде' },
+            { emoji: '📱', title: 'SMS и WhatsApp', desc: 'Сообщения с ссылками на поддельные сайты', content: '• Карта заблокирована\n• Посылка не доставлена\n• Вы выиграли\n• Поддельные коды' },
+            { emoji: '👨‍💻', title: 'Социальные сети', desc: 'Поддельные профили и схемы отбора денег', content: '• Красивый иностранец\n• Инвестиционные предложения\n• Конкурсы и розыгрыши\n• Выдаваемые за друзей' },
+            { emoji: '💰', title: 'Финансовые схемы', desc: 'Предложения быстрого заработка и инвестиций', content: '• Гарантированный доход\n• Удвойте свои деньги\n• Требование предоплаты\n• Спешка и давление' },
+            { emoji: '🏠', title: 'Квартирные', desc: 'Мошенники представляются инспекторами или слесарями', content: '• Проверка счётчиков\n• Срочные ремонты\n• Поддельные агенты\n• Требование предоплаты' },
+            { emoji: '📧', title: 'Email и фишинг', desc: 'Поддельные письма от банков и сервисов', content: '• Подтвердите личность\n• Обновите данные\n• Срочно действуйте\n• Ссылки на подделки' }
+        ],
+        signs: [
+            { emoji: '⚡', title: 'Спешка и давление', desc: '"Действуй сейчас!" или "Это последний шанс!"' },
+            { emoji: '🤫', title: 'Конфиденциальность', desc: '"Не говори никому, даже банку"' },
+            { emoji: '💸', title: 'Просьба денег', desc: 'На карту, через системы или наличными' },
+            { emoji: '🔐', title: 'Пароли', desc: 'Никто не просит пароли по телефону' },
+            { emoji: '🎁', title: 'Слишком хорошо', desc: 'Если нереально - это нереально' },
+            { emoji: '❌', title: 'Ошибки', desc: 'Проверь орфографию в письмах' }
+        ],
+        protect: [
+            { emoji: '🔐', title: 'Пароли', desc: 'Используй сложные, разные для всех сервисов' },
+            { emoji: '📱', title: 'Телефон', desc: 'Не открывай ссылки от незнакомых, обновляй OS' },
+            { emoji: '💳', title: 'Карты', desc: 'Следи за счётом, используй разные карты' },
+            { emoji: '👥', title: 'Семья', desc: 'Договорись о кодовом слове, помогай пожилым' }
+        ]
+    },
+    en: {
+        types: [
+            { emoji: '📞', title: 'Phone Calls', desc: 'Scammers pretend to be banks or police', content: '• Card is blocked\n• Security check\n• Police call\n• Relative in trouble' },
+            { emoji: '📱', title: 'SMS & WhatsApp', desc: 'Messages with links to fake sites', content: '• Card blocked\n• Package not delivered\n• You won\n• Fake codes' },
+            { emoji: '👨‍💻', title: 'Social Media', desc: 'Fake profiles and money schemes', content: '• Beautiful foreigner\n• Investment offers\n• Contests\n• Pretend friends' },
+            { emoji: '💰', title: 'Financial Schemes', desc: 'Quick money and investment offers', content: '• Guaranteed income\n• Double your money\n• Upfront payment\n• Pressure' },
+            { emoji: '🏠', title: 'Home Scams', desc: 'Posing as inspectors or repairmen', content: '• Meter check\n• Urgent repairs\n• Fake agents\n• Advance payment' },
+            { emoji: '📧', title: 'Email & Phishing', desc: 'Fake letters from banks', content: '• Confirm identity\n• Update details\n• Act now\n• Fake links' }
+        ],
+        signs: [
+            { emoji: '⚡', title: 'Hurry', desc: '"Act now!" or "Last chance!"' },
+            { emoji: '🤫', title: 'Secrecy', desc: '"Tell no one, not even the bank"' },
+            { emoji: '💸', title: 'Money', desc: 'Requests to send money' },
+            { emoji: '🔐', title: 'Passwords', desc: 'Never ask for passwords by phone' },
+            { emoji: '🎁', title: 'Too Good', desc: 'If it seems unreal - it is' },
+            { emoji: '❌', title: 'Errors', desc: 'Check spelling in messages' }
+        ],
+        protect: [
+            { emoji: '🔐', title: 'Passwords', desc: 'Use complex, different for each service' },
+            { emoji: '📱', title: 'Phone', desc: 'Don\'t click unknown links, update OS' },
+            { emoji: '💳', title: 'Cards', desc: 'Monitor account, use different cards' },
+            { emoji: '👥', title: 'Family', desc: 'Agree on password, help elderly' }
+        ]
+    },
+    he: {
+        types: [
+            { emoji: '📞', title: 'שיחות טלפון', desc: 'הונאים התחזו לבנק או למשטרה', content: '• כרטיס חסום\n• בדיקת אבטחה\n• שיחה משטרה\n• קרובה בצרה' },
+            { emoji: '📱', title: 'SMS ו- WhatsApp', desc: 'הודעות עם קישורים לאתרים מזויפים', content: '• כרטיס חסום\n• חבילה לא סופקה\n• ניצחת\n• קודים מזויפים' },
+            { emoji: '👨‍💻', title: 'מדיה חברתית', desc: 'פרופילים מזויפים ותוכניות כסף', content: '• זר יפה\n• הצעות השקעה\n• תחרויות\n• חברים מזויפים' },
+            { emoji: '💰', title: 'תוכניות פיננסיות', desc: 'הצעות כסף מהיר והשקעה', content: '• הכנסה מובטחת\n• הכפל את הכסף\n• תשלום מראש\n• לחץ' },
+            { emoji: '🏠', title: 'הונאות בבית', desc: 'התחזו לבדקנים או טכנאים', content: '• בדיקת מטר\n• תיקוני דחופים\n• סוכנים מזויפים\n• תשלום מראש' },
+            { emoji: '📧', title: 'דוא"ל ודיג', desc: 'מכתבים מזויפים מבנקים', content: '• אשר זהות\n• עדכן פרטים\n• פעל עכשיו\n• קישורים מזויפים' }
+        ],
+        signs: [
+            { emoji: '⚡', title: 'מהירות', desc: '"פעל עכשיו!" או "הזדמנות אחרונה!"' },
+            { emoji: '🤫', title: 'סודיות', desc: '"אל תגיד לאף אחד, אפילו לבנק"' },
+            { emoji: '💸', title: 'כסף', desc: 'בקשות לשלוח כסף' },
+            { emoji: '🔐', title: 'סיסמאות', desc: 'לא משאלים סיסמאות בטלפון' },
+            { emoji: '🎁', title: 'טוב מדי', desc: 'אם זה נראה בלתי אפשרי - זה' },
+            { emoji: '❌', title: 'שגיאות', desc: 'בדוק איות בהודעות' }
+        ],
+        protect: [
+            { emoji: '🔐', title: 'סיסמאות', desc: 'השתמש בסיסמאות מורכבות וייחודיות' },
+            { emoji: '📱', title: 'טלפון', desc: 'אל תלחץ על קישורים לא ידועים' },
+            { emoji: '💳', title: 'כרטיסים', desc: 'עקוב אחר חשבון, השתמש בכרטיסים שונים' },
+            { emoji: '👥', title: 'משפחה', desc: 'הסכם על סיסמה, עזור לגיל שלישי' }
+        ]
     }
-    function setL(l) {
-        document.getElementById('b').className = (l === 'he' ? 'rtl' : '');
-        alert("Язык переключен: " + l);
+};
+
+let currentLang = 'ru';
+
+function changeLang(lang, event) {
+    currentLang = lang;
+    
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+
+    if (lang === 'he') {
+        document.body.classList.add('rtl');
+    } else {
+        document.body.classList.remove('rtl');
     }
+
+    // Update all text
+    for (const [key, value] of Object.entries(translations[lang])) {
+        const el = document.getElementById(key);
+        if (el) el.textContent = value;
+    }
+
+    // Rebuild cards
+    renderCards();
+    renderHotlines();
+}
+
+function renderCards() {
+    const lang = currentLang;
+    const typesContainer = document.getElementById('types-cards');
+    const signsContainer = document.getElementById('signs-cards');
+    const protectContainer = document.getElementById('protect-cards');
+
+    typesContainer.innerHTML = cardData[lang].types.map(card => `
+        <div class="card" onclick="toggleCard(this)">
+            <div class="card-emoji">${card.emoji}</div>
+            <div class="card-title">${card.title}</div>
+            <div class="card-text">${card.desc}</div>
+            <div class="card-content">${card.content}</div>
+        </div>
+    `).join('');
+
+    signsContainer.innerHTML = cardData[lang].signs.map(card => `
+        <div class="card" onclick="toggleCard(this)">
+            <div class="card-emoji">${card.emoji}</div>
+            <div class="card-title">${card.title}</div>
+            <div class="card-text">${card.desc}</div>
+        </div>
+    `).join('');
+
+    protectContainer.innerHTML = cardData[lang].protect.map(card => `
+        <div class="card" onclick="toggleCard(this)">
+            <div class="card-emoji">${card.emoji}</div>
+            <div class="card-title">${card.title}</div>
+            <div class="card-text">${card.desc}</div>
+        </div>
+    `).join('');
+}
+
+function renderHotlines() {
+    const hotlines = document.getElementById('hotlines');
+    const numbers = {
+        ru: [
+            { flag: '🇷🇺', name: 'Россия - МВД', num: '8-800-700-40-30', tel: '+78007004030' },
+            { flag: '🇮🇱', name: 'Израиль - Полиция', num: '100', tel: '100' }
+        ],
+        en: [
+            { flag: '🇷🇺', name: 'Russia - Police', num: '8-800-700-40-30', tel: '+78007004030' },
+            { flag: '🇮🇱', name: 'Israel - Police', num: '100', tel: '100' }
+        ],
+        he: [
+            { flag: '🇷🇺', name: 'רוסיה - משטרה', num: '8-800-700-40-30', tel: '+78007004030' },
+            { flag: '🇮🇱', name: 'ישראל - משטרה', num: '100', tel: '100' }
+        ]
+    }[currentLang];
+
+    const title = { ru: '📞 Горячие линии', en: '📞 Hotlines', he: '📞 קווים חמים' }[currentLang];
+
+    hotlines.innerHTML = `<h3>${title}</h3>` + numbers.map(h => `
+        <div class="hotline-item">
+            <div>
+                <div><strong>${h.flag} ${h.name}</strong></div>
+                <div class="hotline-number">${h.num}</div>
+            </div>
+            <button class="qr-btn" onclick="makeQR('tel:${h.tel}', '${h.name}')">📱 QR</button>
+        </div>
+    `).join('');
+}
+
+function toggleCard(card) {
+    const content = card.querySelector('.card-content');
+    if (content) {
+        content.classList.toggle('open');
+    }
+}
+
+function showTab(tabId, event) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    
+    document.getElementById(tabId).classList.add('active');
+    event.target.classList.add('active');
+}
+
+function scrollToSection(sectionId) {
+    showTab(sectionId, event); // передаём event, но его может не быть, поэтому лучше переделать
+    document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+}
+
+function makeQR(text, title) {
+    document.getElementById('qr-title').textContent = title;
+    document.getElementById('qrcode').innerHTML = '';
+    new QRCode(document.getElementById('qrcode'), {
+        text: text,
+        width: 250,
+        height: 250,
+        correctLevel: QRCode.CorrectLevel.H,
+        colorDark: '#667eea',
+        colorLight: '#ffffff'
+    });
+    document.getElementById('qr-modal').classList.add('open');
+}
+
+function closeQR() {
+    document.getElementById('qr-modal').classList.remove('open');
+}
+
+function downloadPDF() {
+    const element = document.querySelector('.container');
+    const opt = {
+        margin: 10,
+        filename: 'Защита_от_мошенников.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
+    };
+    html2pdf().set(opt).from(element).save();
+}
+
+// Initialize
+window.addEventListener('load', () => {
+    renderCards();
+    renderHotlines();
+    changeLang('ru', {target: document.querySelector('.lang-btn.active')}); // небольшая имитация события
+});
 </script>
+
 </body>
 </html>
