@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Защита от мошенников — Премиум справочник</title>
+    <title>STOP SCAM — Интерактивный справочник</title>
     <!-- Шрифт Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -163,7 +163,17 @@
             transform: translateY(-5px);
         }
 
-        /* PHONE ANIMATION */
+        /* VIDEO CONTAINER */
+        .video-box {
+            max-width: 400px;
+            margin: 15px auto;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid white;
+            background: #000;
+        }
+
+        /* PHONE ANIMATION (можно скрыть на мобильных) */
         .phone-container {
             perspective: 1000px;
             display: flex;
@@ -398,6 +408,48 @@
             display: block;
         }
 
+        /* ПАРТНЁРСКИЙ БЛОК */
+        .partner-section {
+            margin-top: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #f5f7ff, #e8ecff);
+            border-radius: 30px;
+            border: 1px solid rgba(30,43,94,0.1);
+            box-shadow: 0 15px 30px -10px rgba(0,0,0,0.1);
+        }
+
+        .partner-section h3 {
+            color: #1e2b5e;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .partner-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .partner-btn {
+            padding: 12px 25px;
+            background: #1e2b5e;
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .partner-btn:hover {
+            background: #3a0f5e;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
         /* HOTLINES */
         .hotlines {
             background: linear-gradient(135deg, #1e2b5e 0%, #3a0f5e 100%);
@@ -627,6 +679,26 @@
             color: #777;
         }
 
+        /* КНОПКА ПОДДЕРЖКИ */
+        .support-btn {
+            display: inline-block;
+            padding: 12px 20px;
+            background: #ffdd00;
+            color: #333;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .support-btn:hover {
+            background: #ffd700;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255,221,0,0.3);
+        }
+
         /* КНОПКА НАВЕРХ */
         #scrollTopBtn {
             position: fixed;
@@ -710,23 +782,19 @@
 <div class="hero">
     <div class="hero-content">
         <div class="hero-text">
-            <h1 id="hero-title">🛡️ Защита от мошенников</h1>
-            <p id="hero-subtitle">Интерактивный справочник для безопасности в интернете</p>
+            <h1 id="hero-title">🛡️ STOP SCAM</h1>
+            <p id="hero-subtitle">Интерактивный справочник · Твоя защита в один клик</p>
             <div class="hero-buttons">
                 <button class="btn btn-primary" onclick="scrollToSection('types')" id="btn-start"><i class="fas fa-graduation-cap"></i> Начать обучение</button>
                 <button class="btn btn-secondary" onclick="downloadPDF()" id="btn-download"><i class="fas fa-file-pdf"></i> Скачать PDF</button>
             </div>
         </div>
-        <div class="phone-container">
-            <div class="phone">
-                <div class="phone-screen">
-                    <div class="phone-status" id="phone-status">Защита от мошенников</div>
-                    <div class="phone-content">
-                        <div class="phone-emoji">🛡️</div>
-                        <div class="phone-text" id="phone-text">Учись распознавать аферы</div>
-                    </div>
-                </div>
-            </div>
+        <div class="video-box">
+            <!-- Замените site_shield.mp4 на своё видео из Grok -->
+            <video width="100%" autoplay loop muted playsinline>
+                <source src="site_shield.mp4" type="video/mp4">
+                Ваш браузер не поддерживает видео.
+            </video>
         </div>
     </div>
 </div>
@@ -761,6 +829,16 @@
     <div id="types" class="section active">
         <h2 id="h-types"><i class="fas fa-list"></i> Основные типы мошенничества</h2>
         <div class="cards" id="types-cards"></div>
+        <!-- Партнёрский блок внутри types (можно переместить в другое место) -->
+        <div class="partner-section" data-aos="fade-up">
+            <h3 id="partner-title">🛡️ Надёжная защита от партнёров</h3>
+            <p id="partner-desc">Проверенные антивирусы, которые мы рекомендуем:</p>
+            <div class="partner-buttons">
+                <a href="https://www.kaspersky.ru/?ref=moshen" target="_blank" class="partner-btn" id="partner-kaspersky"><i class="fas fa-shield-virus"></i> Kaspersky</a>
+                <a href="https://www.avast.ru/?ref=moshen" target="_blank" class="partner-btn" id="partner-avast"><i class="fas fa-shield-alt"></i> Avast</a>
+            </div>
+            <p style="margin-top:15px; font-size:0.9em; color:#555;" id="partner-affiliate">*Партнёрские ссылки</p>
+        </div>
     </div>
 
     <!-- SIGNS SECTION -->
@@ -820,24 +898,28 @@
 <footer class="footer">
     <div class="footer-content">
         <div class="footer-col">
-            <h4>🛡️ Защита от мошенников</h4>
+            <h4>🛡️ STOP SCAM</h4>
             <p id="footer-about">Интерактивный справочник для всех</p>
         </div>
         <div class="footer-col">
             <h4 id="footer-nav">Навигация</h4>
-            <a href="#" onclick="showTab('types', event)">Типы</a>
-            <a href="#" onclick="showTab('signs', event)">Признаки</a>
-            <a href="#" onclick="showTab('protect', event)">Защита</a>
-            <a href="#" onclick="showTab('help', event)">Помощь</a>
+            <a href="#" onclick="showTab('types', event); return false;">Типы</a>
+            <a href="#" onclick="showTab('signs', event); return false;">Признаки</a>
+            <a href="#" onclick="showTab('protect', event); return false;">Защита</a>
+            <a href="#" onclick="showTab('help', event); return false;">Помощь</a>
         </div>
         <div class="footer-col">
             <h4 id="footer-contacts">Контакты</h4>
             <a href="tel:88007004030">8-800-700-40-30 (РФ)</a>
             <a href="tel:100">100 (Израиль)</a>
         </div>
+        <div class="footer-col">
+            <h4 id="footer-support">Поддержать проект</h4>
+            <a href="https://boosty.to/ваш-логин" target="_blank" class="support-btn"><i class="fas fa-mug-hot"></i> Купить кофе</a>
+        </div>
     </div>
     <div class="footer-bottom" id="footer-copyright">
-        © 2025 Защита от мошенников. Все права защищены.
+        © 2025 STOP SCAM. Все права защищены.
     </div>
 </footer>
 
@@ -850,7 +932,7 @@
     </div>
 </div>
 
-<!-- Чат-бот (как в оригинале) -->
+<!-- Чат-бот -->
 <div class="bot-btn" onclick="tog()">💬</div>
 <div class="bot-window" id="w">
     <div style="background:#1e2b5e; color:white; padding:10px; border-radius:12px 12px 0 0;"><i class="fas fa-robot"></i> Бот-помощник</div>
@@ -863,12 +945,11 @@
 
 <!-- Скрипты -->
 <script>
-// Все функции и данные из предыдущей версии, немного адаптированные под иконки и AOS
-
+// ==================== ПЕРЕВОДЫ (ПОЛНЫЕ) ====================
 const translations = {
     ru: {
-        'hero-title': '🛡️ Защита от мошенников',
-        'hero-subtitle': 'Интерактивный справочник для безопасности в интернете',
+        'hero-title': '🛡️ STOP SCAM',
+        'hero-subtitle': 'Интерактивный справочник · Твоя защита в один клик',
         'btn-start': 'Начать обучение',
         'btn-download': 'Скачать PDF',
         'phone-status': 'Защита от мошенников',
@@ -894,11 +975,17 @@ const translations = {
         'footer-about': 'Интерактивный справочник для всех',
         'footer-nav': 'Навигация',
         'footer-contacts': 'Контакты',
-        'footer-copyright': '© 2025 Защита от мошенников. Все права защищены.'
+        'footer-support': 'Поддержать проект',
+        'footer-copyright': '© 2025 STOP SCAM. Все права защищены.',
+        'partner-title': '🛡️ Надёжная защита от партнёров',
+        'partner-desc': 'Проверенные антивирусы, которые мы рекомендуем:',
+        'partner-kaspersky': 'Kaspersky',
+        'partner-avast': 'Avast',
+        'partner-affiliate': '*Партнёрские ссылки'
     },
     en: {
-        'hero-title': '🛡️ Protection from Scammers',
-        'hero-subtitle': 'Interactive guide for internet security',
+        'hero-title': '🛡️ STOP SCAM',
+        'hero-subtitle': 'Interactive guide · Your protection in one click',
         'btn-start': 'Start Learning',
         'btn-download': 'Download PDF',
         'phone-status': 'Protection from Scammers',
@@ -908,7 +995,7 @@ const translations = {
         'nav-protect': 'Protection',
         'nav-help': 'Help',
         'nav-quiz': 'Test',
-        'h-types': 'Types of Fraud',
+        'h-types': 'Main Types of Fraud',
         'h-signs': 'Signs of Scam',
         'h-protect': 'Ways to Protect',
         'h-help': 'Hotlines and Help',
@@ -924,11 +1011,17 @@ const translations = {
         'footer-about': 'Interactive guide for everyone',
         'footer-nav': 'Navigation',
         'footer-contacts': 'Contacts',
-        'footer-copyright': '© 2025 Protection from Scammers. All rights reserved.'
+        'footer-support': 'Support the project',
+        'footer-copyright': '© 2025 STOP SCAM. All rights reserved.',
+        'partner-title': '🛡️ Trusted protection from partners',
+        'partner-desc': 'Verified antiviruses we recommend:',
+        'partner-kaspersky': 'Kaspersky',
+        'partner-avast': 'Avast',
+        'partner-affiliate': '*Affiliate links'
     },
     he: {
-        'hero-title': '🛡️ הגנה מפני הונאים',
-        'hero-subtitle': 'מדריך אינטראקטיבי לבטיחות באינטרנט',
+        'hero-title': '🛡️ STOP SCAM',
+        'hero-subtitle': 'מדריך אינטראקטיבי · ההגנה שלך בקליק אחד',
         'btn-start': 'התחל ללמוד',
         'btn-download': 'הורד PDF',
         'phone-status': 'הגנה מפני הונאים',
@@ -938,9 +1031,9 @@ const translations = {
         'nav-protect': 'הגנה',
         'nav-help': 'עזרה',
         'nav-quiz': 'בדיקה',
-        'h-types': 'סוגי הונאה',
-        'h-signs': 'סימנים של הונאה',
-        'h-protect': 'דרכים להגנה',
+        'h-types': 'סוגי הונאה עיקריים',
+        'h-signs': 'סימני הונאה',
+        'h-protect': 'דרכי הגנה',
         'h-help': 'קווים חמים וסיוע',
         'h-quiz': 'בדוק את הידע שלך',
         'qr-close': 'סגור',
@@ -954,10 +1047,17 @@ const translations = {
         'footer-about': 'מדריך אינטראקטיבי לכולם',
         'footer-nav': 'ניווט',
         'footer-contacts': 'אנשי קשר',
-        'footer-copyright': '© 2025 הגנה מפני הונאים. כל הזכויות שמורות.'
+        'footer-support': 'תמוך בפרויקט',
+        'footer-copyright': '© 2025 STOP SCAM. כל הזכויות שמורות.',
+        'partner-title': '🛡️ הגנה אמינה משותפים',
+        'partner-desc': 'אנטיוירוסים מאומתים שאנו ממליצים:',
+        'partner-kaspersky': 'Kaspersky',
+        'partner-avast': 'Avast',
+        'partner-affiliate': '*קישורי שותפים'
     }
 };
 
+// ==================== ДАННЫЕ КАРТОЧЕК (без изменений, но убедимся, что везде есть иконки) ====================
 const cardData = {
     ru: {
         types: [
@@ -1047,17 +1147,16 @@ function changeLang(lang, event) {
         document.body.classList.remove('rtl');
     }
 
-    // Update all text
+    // Update all text by ID
     for (const [key, value] of Object.entries(translations[lang])) {
         const el = document.getElementById(key);
-        if (el) el.textContent = value;
+        if (el) el.innerHTML = value; // innerHTML чтобы иконки работали
     }
 
     // Rebuild cards
     renderCards();
     renderHotlines();
 
-    // Обновить AOS после добавления новых элементов
     if (typeof AOS !== 'undefined') AOS.refresh();
 }
 
@@ -1092,7 +1191,6 @@ function renderCards() {
         </div>
     `).join('');
 
-    // Обновить AOS после добавления карточек
     if (typeof AOS !== 'undefined') AOS.refresh();
 }
 
@@ -1136,13 +1234,18 @@ function toggleCard(card) {
 function showTab(tabId, event) {
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-    
     document.getElementById(tabId).classList.add('active');
     event.target.classList.add('active');
 }
 
 function scrollToSection(sectionId) {
-    showTab(sectionId, {target: document.querySelector(`[onclick*="'${sectionId}'"]`)});
+    // Найти кнопку таба и эмулировать событие
+    const tabButton = document.querySelector(`.nav-tab[onclick*="'${sectionId}'"]`);
+    if (tabButton) {
+        showTab(sectionId, { target: tabButton });
+    } else {
+        document.getElementById(sectionId).classList.add('active');
+    }
     document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
 }
 
@@ -1168,7 +1271,7 @@ function downloadPDF() {
     const element = document.querySelector('.container');
     const opt = {
         margin: 10,
-        filename: 'Защита_от_мошенников.pdf',
+        filename: 'Zashchita_ot_moshennikov.pdf',
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2 },
         jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
@@ -1205,11 +1308,13 @@ function send() {
 window.addEventListener('load', () => {
     renderCards();
     renderHotlines();
-    changeLang('ru', {target: document.querySelector('.lang-btn.active')});
+    // Установить активный язык (первый)
+    const activeBtn = document.querySelector('.lang-btn.active');
+    if (activeBtn) changeLang('ru', { target: activeBtn });
     AOS.init({ duration: 800, once: true });
 });
 </script>
-<!-- Стили для чат-бота (добавлены в основной CSS выше, но здесь можно продублировать на всякий случай) -->
+<!-- Стили для чат-бота (уже есть, но продублируем для уверенности) -->
 <style>
     .bot-btn { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: #1e2b5e; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; cursor: pointer; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
     .bot-window { position: fixed; bottom: 90px; right: 20px; width: 300px; height: 400px; background: white; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); display: none; flex-direction: column; z-index: 1000; }
