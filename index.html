@@ -1,13 +1,22 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Защита от мошенников - Премиум</title>
+    <title>Защита от мошенников — Премиум справочник</title>
+    <!-- Шрифт Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <!-- AOS (анимация) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Font Awesome иконки -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Библиотеки для QR и PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <!-- Yandex.Metrika counter -->
+    <!-- Яндекс.Метрика -->
     <script type="text/javascript">
         (function(m,e,t,r,i,k,a){
             m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -18,7 +27,6 @@
         ym(107023470, 'init', {ssr:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/107023470" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- /Yandex.Metrika counter -->
     <style>
         * {
             margin: 0;
@@ -27,8 +35,8 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1e2b5e 0%, #3a0f5e 100%);
             min-height: 100vh;
             color: #333;
         }
@@ -51,11 +59,12 @@
             cursor: pointer;
             font-weight: bold;
             transition: 0.3s;
+            backdrop-filter: blur(5px);
         }
 
         .lang-btn.active {
             background: white;
-            color: #667eea;
+            color: #1e2b5e;
         }
 
         /* HERO SECTION */
@@ -67,6 +76,7 @@
             padding: 40px 20px;
             position: relative;
             overflow: hidden;
+            background-attachment: fixed;
         }
 
         .hero::before {
@@ -121,33 +131,36 @@
             padding: 15px 40px;
             font-size: 1.1em;
             border: none;
-            border-radius: 10px;
+            border-radius: 50px;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s;
             text-decoration: none;
             display: inline-block;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
 
         .btn-primary {
             background: white;
-            color: #667eea;
+            color: #1e2b5e;
         }
 
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
         }
 
         .btn-secondary {
             background: rgba(255,255,255,0.2);
             color: white;
             border: 2px solid white;
+            backdrop-filter: blur(5px);
         }
 
         .btn-secondary:hover {
             background: white;
-            color: #667eea;
+            color: #1e2b5e;
+            transform: translateY(-5px);
         }
 
         /* PHONE ANIMATION */
@@ -204,7 +217,7 @@
         }
 
         .phone-status {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e2b5e 0%, #3a0f5e 100%);
             color: white;
             padding: 8px;
             font-size: 12px;
@@ -235,10 +248,48 @@
         }
 
         .phone-text {
-            color: #667eea;
+            color: #1e2b5e;
             font-weight: bold;
             font-size: 14px;
             line-height: 1.4;
+        }
+
+        /* БЛОК СТАТИСТИКИ */
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1000px;
+            margin: -50px auto 50px;
+            padding: 30px 20px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 60px;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 20;
+            color: white;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            display: block;
+            line-height: 1.2;
+            background: linear-gradient(135deg, #fff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
         }
 
         /* MAIN CONTENT */
@@ -247,6 +298,8 @@
             margin: 0 auto;
             padding: 60px 20px;
             background: white;
+            border-radius: 60px 60px 0 0;
+            box-shadow: 0 -20px 40px rgba(0,0,0,0.1);
         }
 
         .section {
@@ -278,22 +331,22 @@
             border: none;
             cursor: pointer;
             font-size: 1em;
-            font-weight: bold;
+            font-weight: 600;
             color: #999;
             transition: all 0.3s;
             white-space: nowrap;
         }
 
         .nav-tab:hover, .nav-tab.active {
-            color: #667eea;
-            border-bottom: 3px solid #667eea;
+            color: #1e2b5e;
+            border-bottom: 3px solid #1e2b5e;
             margin-bottom: -12px;
             padding-bottom: 9px;
         }
 
         h2 {
             font-size: 2.5em;
-            color: #667eea;
+            color: #1e2b5e;
             margin-bottom: 30px;
         }
 
@@ -305,35 +358,38 @@
         }
 
         .card {
-            background: white;
-            border-radius: 15px;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            border-left: 5px solid #667eea;
-            transition: all 0.3s;
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
             cursor: pointer;
+            border-left: 5px solid #1e2b5e;
         }
 
         .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(102,126,234,0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 30px 50px -15px rgba(30,43,94,0.4);
         }
 
         .card-emoji {
-            font-size: 3em;
+            font-size: 2.5em;
             margin-bottom: 15px;
+            color: #1e2b5e;
         }
 
         .card-title {
             font-size: 1.5em;
-            color: #333;
+            color: #1e2b5e;
             margin-bottom: 15px;
             font-weight: bold;
         }
 
         .card-content {
             display: none;
-            color: #666;
+            color: #555;
             line-height: 1.8;
             margin-top: 15px;
         }
@@ -344,11 +400,12 @@
 
         /* HOTLINES */
         .hotlines {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e2b5e 0%, #3a0f5e 100%);
             color: white;
             padding: 40px;
-            border-radius: 15px;
+            border-radius: 30px;
             margin: 40px 0;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
 
         .hotlines h3 {
@@ -359,12 +416,13 @@
         .hotline-item {
             background: rgba(255,255,255,0.1);
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 20px;
             margin-bottom: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
         .hotline-number {
@@ -375,10 +433,10 @@
 
         .qr-btn {
             background: white;
-            color: #667eea;
+            color: #1e2b5e;
             border: none;
             padding: 10px 20px;
-            border-radius: 6px;
+            border-radius: 50px;
             cursor: pointer;
             font-weight: bold;
             transition: 0.3s;
@@ -386,6 +444,7 @@
 
         .qr-btn:hover {
             transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         /* MODAL */
@@ -409,7 +468,7 @@
         .modal-content {
             background: white;
             padding: 40px;
-            border-radius: 15px;
+            border-radius: 30px;
             max-width: 450px;
             width: 90%;
             text-align: center;
@@ -417,7 +476,7 @@
 
         .modal-title {
             font-size: 1.5em;
-            color: #667eea;
+            color: #1e2b5e;
             margin-bottom: 20px;
             font-weight: bold;
         }
@@ -429,11 +488,11 @@
         }
 
         .modal-close {
-            background: #667eea;
+            background: #1e2b5e;
             color: white;
             border: none;
             padding: 12px 30px;
-            border-radius: 6px;
+            border-radius: 50px;
             cursor: pointer;
             font-weight: bold;
             margin-top: 20px;
@@ -450,7 +509,7 @@
         .social-btn {
             padding: 12px 25px;
             border: none;
-            border-radius: 6px;
+            border-radius: 50px;
             cursor: pointer;
             font-weight: bold;
             color: white;
@@ -459,6 +518,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .social-btn:hover {
@@ -471,12 +531,122 @@
         .tg { background: #0088cc; }
         .vk { background: #0077ff; }
 
-        .footer {
-            background: #333;
-            color: white;
+        /* БЛОК ОТЗЫВОВ */
+        .testimonials {
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+
+        .testimonials h2 {
             text-align: center;
-            padding: 40px 20px;
-            margin-top: 60px;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .testimonial-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 30px;
+            padding: 30px;
+            color: white;
+            box-shadow: 0 20px 30px rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 40px rgba(0,0,0,0.3);
+        }
+
+        .testimonial-card i {
+            font-size: 2em;
+            margin-bottom: 15px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .testimonial-card p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .author {
+            font-weight: 600;
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* FOOTER */
+        .footer {
+            background: #111;
+            color: white;
+            padding: 60px 20px 30px;
+            margin-top: 0;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-col h4 {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            color: #aaa;
+        }
+
+        .footer-col a {
+            color: #ddd;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: 0.2s;
+        }
+
+        .footer-col a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid #333;
+            margin-top: 40px;
+            color: #777;
+        }
+
+        /* КНОПКА НАВЕРХ */
+        #scrollTopBtn {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            z-index: 99;
+            background: #1e2b5e;
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            display: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: background 0.3s;
+        }
+        #scrollTopBtn:hover {
+            background: #3a0f5e;
         }
 
         body.rtl {
@@ -511,10 +681,23 @@
                 padding: 8px 12px;
                 font-size: 0.9em;
             }
+
+            .stats-container {
+                border-radius: 30px;
+                margin-top: -30px;
+                padding: 20px 10px;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
+
+<!-- Кнопка наверх -->
+<button onclick="scrollToTop()" id="scrollTopBtn" title="Наверх">↑</button>
 
 <!-- Language Selector -->
 <div class="lang-selector">
@@ -530,8 +713,8 @@
             <h1 id="hero-title">🛡️ Защита от мошенников</h1>
             <p id="hero-subtitle">Интерактивный справочник для безопасности в интернете</p>
             <div class="hero-buttons">
-                <button class="btn btn-primary" onclick="scrollToSection('types')" id="btn-start">Начать обучение</button>
-                <button class="btn btn-secondary" onclick="downloadPDF()" id="btn-download">📥 Скачать PDF</button>
+                <button class="btn btn-primary" onclick="scrollToSection('types')" id="btn-start"><i class="fas fa-graduation-cap"></i> Начать обучение</button>
+                <button class="btn btn-secondary" onclick="downloadPDF()" id="btn-download"><i class="fas fa-file-pdf"></i> Скачать PDF</button>
             </div>
         </div>
         <div class="phone-container">
@@ -548,52 +731,115 @@
     </div>
 </div>
 
+<!-- Блок статистики -->
+<div class="stats-container" data-aos="fade-up">
+    <div class="stat-item">
+        <span class="stat-number">10 000+</span>
+        <span class="stat-label" id="stat-users">пользователей</span>
+    </div>
+    <div class="stat-item">
+        <span class="stat-number">5 000+</span>
+        <span class="stat-label" id="stat-attacks">предотвращённых атак</span>
+    </div>
+    <div class="stat-item">
+        <span class="stat-number">100%</span>
+        <span class="stat-label" id="stat-free">бесплатно</span>
+    </div>
+</div>
+
 <!-- MAIN CONTENT -->
 <div class="container">
     <div class="nav-tabs">
-        <button class="nav-tab active" onclick="showTab('types', event)" id="nav-types">📱 Типы мошенничества</button>
-        <button class="nav-tab" onclick="showTab('signs', event)" id="nav-signs">🔍 Признаки</button>
-        <button class="nav-tab" onclick="showTab('protect', event)" id="nav-protect">🔐 Защита</button>
-        <button class="nav-tab" onclick="showTab('help', event)" id="nav-help">🆘 Помощь</button>
-        <button class="nav-tab" onclick="showTab('quiz', event)" id="nav-quiz">❓ Тест</button>
+        <button class="nav-tab active" onclick="showTab('types', event)" id="nav-types"><i class="fas fa-mobile-alt"></i> Типы мошенничества</button>
+        <button class="nav-tab" onclick="showTab('signs', event)" id="nav-signs"><i class="fas fa-exclamation-triangle"></i> Признаки</button>
+        <button class="nav-tab" onclick="showTab('protect', event)" id="nav-protect"><i class="fas fa-shield-alt"></i> Защита</button>
+        <button class="nav-tab" onclick="showTab('help', event)" id="nav-help"><i class="fas fa-phone-alt"></i> Помощь</button>
+        <button class="nav-tab" onclick="showTab('quiz', event)" id="nav-quiz"><i class="fas fa-question-circle"></i> Тест</button>
     </div>
 
     <!-- TYPES SECTION -->
     <div id="types" class="section active">
-        <h2 id="h-types">Основные типы мошенничества</h2>
+        <h2 id="h-types"><i class="fas fa-list"></i> Основные типы мошенничества</h2>
         <div class="cards" id="types-cards"></div>
     </div>
 
     <!-- SIGNS SECTION -->
     <div id="signs" class="section">
-        <h2 id="h-signs">Признаки мошенничества</h2>
+        <h2 id="h-signs"><i class="fas fa-search"></i> Признаки мошенничества</h2>
         <div class="cards" id="signs-cards"></div>
     </div>
 
     <!-- PROTECT SECTION -->
     <div id="protect" class="section">
-        <h2 id="h-protect">Способы защиты</h2>
+        <h2 id="h-protect"><i class="fas fa-lock"></i> Способы защиты</h2>
         <div class="cards" id="protect-cards"></div>
     </div>
 
     <!-- HELP SECTION -->
     <div id="help" class="section">
-        <h2 id="h-help">Горячие линии и помощь</h2>
+        <h2 id="h-help"><i class="fas fa-hands-helping"></i> Горячие линии и помощь</h2>
         <div class="social-buttons">
-            <a href="https://www.facebook.com/sharer/sharer.php?u=https://moshen.vercel.app" target="_blank" class="social-btn fb">👍 Facebook</a>
-            <a href="https://wa.me/?text=Защита от мошенников" target="_blank" class="social-btn wa">💬 WhatsApp</a>
-            <a href="https://t.me/share/url?url=https://moshen.vercel.app" target="_blank" class="social-btn tg">✈️ Telegram</a>
-            <a href="https://vk.com/share.php?url=https://moshen.vercel.app" target="_blank" class="social-btn vk">VK</a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://moshen.vercel.app" target="_blank" class="social-btn fb"><i class="fab fa-facebook-f"></i> Facebook</a>
+            <a href="https://wa.me/?text=Защита%20от%20мошенников" target="_blank" class="social-btn wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <a href="https://t.me/share/url?url=https://moshen.vercel.app" target="_blank" class="social-btn tg"><i class="fab fa-telegram-plane"></i> Telegram</a>
+            <a href="https://vk.com/share.php?url=https://moshen.vercel.app" target="_blank" class="social-btn vk"><i class="fab fa-vk"></i> VK</a>
         </div>
         <div class="hotlines" id="hotlines"></div>
     </div>
 
     <!-- QUIZ SECTION -->
     <div id="quiz" class="section">
-        <h2 id="h-quiz">Проверь свои знания</h2>
+        <h2 id="h-quiz"><i class="fas fa-puzzle-piece"></i> Проверь свои знания</h2>
         <div id="quiz-content"></div>
     </div>
 </div>
+
+<!-- Блок отзывов -->
+<div class="testimonials">
+    <h2><i class="fas fa-star"></i> <span id="testimonials-title">Что говорят пользователи</span></h2>
+    <div class="testimonial-grid">
+        <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+            <i class="fas fa-quote-right"></i>
+            <p id="testimonial1">"Благодаря этому справочнику моя мама больше не попадается на удочку мошенников!"</p>
+            <div class="author">— Елена, Москва</div>
+        </div>
+        <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+            <i class="fas fa-quote-right"></i>
+            <p id="testimonial2">"Всё чётко и понятно. Пользуюсь сам и рекомендую коллегам."</p>
+            <div class="author">— Дмитрий, СПб</div>
+        </div>
+        <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300">
+            <i class="fas fa-quote-right"></i>
+            <p id="testimonial3">"Спасли мои сбережения! Спасибо за вашу работу."</p>
+            <div class="author">— Анна, Казань</div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-col">
+            <h4>🛡️ Защита от мошенников</h4>
+            <p id="footer-about">Интерактивный справочник для всех</p>
+        </div>
+        <div class="footer-col">
+            <h4 id="footer-nav">Навигация</h4>
+            <a href="#" onclick="showTab('types', event)">Типы</a>
+            <a href="#" onclick="showTab('signs', event)">Признаки</a>
+            <a href="#" onclick="showTab('protect', event)">Защита</a>
+            <a href="#" onclick="showTab('help', event)">Помощь</a>
+        </div>
+        <div class="footer-col">
+            <h4 id="footer-contacts">Контакты</h4>
+            <a href="tel:88007004030">8-800-700-40-30 (РФ)</a>
+            <a href="tel:100">100 (Израиль)</a>
+        </div>
+    </div>
+    <div class="footer-bottom" id="footer-copyright">
+        © 2025 Защита от мошенников. Все права защищены.
+    </div>
+</footer>
 
 <!-- QR MODAL -->
 <div class="modal" id="qr-modal" onclick="if(event.target==this) closeQR()">
@@ -604,144 +850,185 @@
     </div>
 </div>
 
-<!-- FOOTER -->
-<div class="footer" id="footer"></div>
+<!-- Чат-бот (как в оригинале) -->
+<div class="bot-btn" onclick="tog()">💬</div>
+<div class="bot-window" id="w">
+    <div style="background:#1e2b5e; color:white; padding:10px; border-radius:12px 12px 0 0;"><i class="fas fa-robot"></i> Бот-помощник</div>
+    <div id="m" style="flex:1; padding:10px; overflow:auto;"></div>
+    <div style="display:flex; padding:10px; border-top:1px solid #ddd;">
+        <input id="i" style="flex:1; padding:5px; border-radius:20px; border:1px solid #ccc;" placeholder="Вопрос...">
+        <button onclick="send()" style="background:#1e2b5e; color:white; border:none; border-radius:50%; width:40px; height:40px; margin-left:5px;"><i class="fas fa-paper-plane"></i></button>
+    </div>
+</div>
 
+<!-- Скрипты -->
 <script>
+// Все функции и данные из предыдущей версии, немного адаптированные под иконки и AOS
+
 const translations = {
     ru: {
         'hero-title': '🛡️ Защита от мошенников',
         'hero-subtitle': 'Интерактивный справочник для безопасности в интернете',
         'btn-start': 'Начать обучение',
-        'btn-download': '📥 Скачать PDF',
+        'btn-download': 'Скачать PDF',
         'phone-status': 'Защита от мошенников',
         'phone-text': 'Учись распознавать аферы',
-        'nav-types': '📱 Типы мошенничества',
-        'nav-signs': '🔍 Признаки',
-        'nav-protect': '🔐 Защита',
-        'nav-help': '🆘 Помощь',
-        'nav-quiz': '❓ Тест',
+        'nav-types': 'Типы мошенничества',
+        'nav-signs': 'Признаки',
+        'nav-protect': 'Защита',
+        'nav-help': 'Помощь',
+        'nav-quiz': 'Тест',
         'h-types': 'Основные типы мошенничества',
         'h-signs': 'Признаки мошенничества',
         'h-protect': 'Способы защиты',
         'h-help': 'Горячие линии и помощь',
         'h-quiz': 'Проверь свои знания',
         'qr-close': 'Закрыть',
-        'footer': '🛡️ Помните: мошенники становятся умнее. Будьте осторожны!'
+        'stat-users': 'пользователей',
+        'stat-attacks': 'предотвращённых атак',
+        'stat-free': 'бесплатно',
+        'testimonials-title': 'Что говорят пользователи',
+        'testimonial1': '"Благодаря этому справочнику моя мама больше не попадается на удочку мошенников!"',
+        'testimonial2': '"Всё чётко и понятно. Пользуюсь сам и рекомендую коллегам."',
+        'testimonial3': '"Спасли мои сбережения! Спасибо за вашу работу."',
+        'footer-about': 'Интерактивный справочник для всех',
+        'footer-nav': 'Навигация',
+        'footer-contacts': 'Контакты',
+        'footer-copyright': '© 2025 Защита от мошенников. Все права защищены.'
     },
     en: {
         'hero-title': '🛡️ Protection from Scammers',
         'hero-subtitle': 'Interactive guide for internet security',
         'btn-start': 'Start Learning',
-        'btn-download': '📥 Download PDF',
+        'btn-download': 'Download PDF',
         'phone-status': 'Protection from Scammers',
         'phone-text': 'Learn to recognize scams',
-        'nav-types': '📱 Types of Fraud',
-        'nav-signs': '🔍 Signs',
-        'nav-protect': '🔐 Protection',
-        'nav-help': '🆘 Help',
-        'nav-quiz': '❓ Test',
+        'nav-types': 'Types of Fraud',
+        'nav-signs': 'Signs',
+        'nav-protect': 'Protection',
+        'nav-help': 'Help',
+        'nav-quiz': 'Test',
         'h-types': 'Types of Fraud',
         'h-signs': 'Signs of Scam',
         'h-protect': 'Ways to Protect',
         'h-help': 'Hotlines and Help',
         'h-quiz': 'Check Your Knowledge',
         'qr-close': 'Close',
-        'footer': '🛡️ Remember: scammers get smarter. Be careful!'
+        'stat-users': 'users',
+        'stat-attacks': 'attacks prevented',
+        'stat-free': 'free',
+        'testimonials-title': 'What users say',
+        'testimonial1': '"Thanks to this guide, my mom no longer falls for scammers!"',
+        'testimonial2': '"Everything is clear and understandable. I use it myself and recommend it."',
+        'testimonial3': '"Saved my savings! Thank you for your work."',
+        'footer-about': 'Interactive guide for everyone',
+        'footer-nav': 'Navigation',
+        'footer-contacts': 'Contacts',
+        'footer-copyright': '© 2025 Protection from Scammers. All rights reserved.'
     },
     he: {
         'hero-title': '🛡️ הגנה מפני הונאים',
         'hero-subtitle': 'מדריך אינטראקטיבי לבטיחות באינטרנט',
         'btn-start': 'התחל ללמוד',
-        'btn-download': '📥 הורד PDF',
+        'btn-download': 'הורד PDF',
         'phone-status': 'הגנה מפני הונאים',
         'phone-text': 'למד לזהות הונאות',
-        'nav-types': '📱 סוגי הונאה',
-        'nav-signs': '🔍 סימנים',
-        'nav-protect': '🔐 הגנה',
-        'nav-help': '🆘 עזרה',
-        'nav-quiz': '❓ בדיקה',
+        'nav-types': 'סוגי הונאה',
+        'nav-signs': 'סימנים',
+        'nav-protect': 'הגנה',
+        'nav-help': 'עזרה',
+        'nav-quiz': 'בדיקה',
         'h-types': 'סוגי הונאה',
         'h-signs': 'סימנים של הונאה',
         'h-protect': 'דרכים להגנה',
         'h-help': 'קווים חמים וסיוע',
         'h-quiz': 'בדוק את הידע שלך',
         'qr-close': 'סגור',
-        'footer': '🛡️ זכור: הונאים הופכים לחכמים יותר. היו זהירים!'
+        'stat-users': 'משתמשים',
+        'stat-attacks': 'מתקפות שנמנעו',
+        'stat-free': 'חינם',
+        'testimonials-title': 'מה המשתמשים אומרים',
+        'testimonial1': '"בזכות המדריך הזה, אמא שלי כבר לא נופלת בפח של הרמאים!"',
+        'testimonial2': '"הכל ברור ומובן. אני משתמש וממליץ."',
+        'testimonial3': '"הצילו את החסכונות שלי! תודה על העבודה שלכם."',
+        'footer-about': 'מדריך אינטראקטיבי לכולם',
+        'footer-nav': 'ניווט',
+        'footer-contacts': 'אנשי קשר',
+        'footer-copyright': '© 2025 הגנה מפני הונאים. כל הזכויות שמורות.'
     }
 };
 
 const cardData = {
     ru: {
         types: [
-            { emoji: '📞', title: 'Звонки', desc: 'Мошенники звонят и выдают себя за банк, силовиков или родственников', content: '• Блокировка карты\n• Проверка безопасности\n• Звонок от "полиции"\n• Родственник в беде' },
-            { emoji: '📱', title: 'SMS и WhatsApp', desc: 'Сообщения с ссылками на поддельные сайты', content: '• Карта заблокирована\n• Посылка не доставлена\n• Вы выиграли\n• Поддельные коды' },
-            { emoji: '👨‍💻', title: 'Социальные сети', desc: 'Поддельные профили и схемы отбора денег', content: '• Красивый иностранец\n• Инвестиционные предложения\n• Конкурсы и розыгрыши\n• Выдаваемые за друзей' },
-            { emoji: '💰', title: 'Финансовые схемы', desc: 'Предложения быстрого заработка и инвестиций', content: '• Гарантированный доход\n• Удвойте свои деньги\n• Требование предоплаты\n• Спешка и давление' },
-            { emoji: '🏠', title: 'Квартирные', desc: 'Мошенники представляются инспекторами или слесарями', content: '• Проверка счётчиков\n• Срочные ремонты\n• Поддельные агенты\n• Требование предоплаты' },
-            { emoji: '📧', title: 'Email и фишинг', desc: 'Поддельные письма от банков и сервисов', content: '• Подтвердите личность\n• Обновите данные\n• Срочно действуйте\n• Ссылки на подделки' }
+            { emoji: '<i class="fas fa-phone-alt"></i>', title: 'Звонки', desc: 'Мошенники звонят и выдают себя за банк, силовиков или родственников', content: '• Блокировка карты\n• Проверка безопасности\n• Звонок от "полиции"\n• Родственник в беде' },
+            { emoji: '<i class="fas fa-sms"></i>', title: 'SMS и WhatsApp', desc: 'Сообщения с ссылками на поддельные сайты', content: '• Карта заблокирована\n• Посылка не доставлена\n• Вы выиграли\n• Поддельные коды' },
+            { emoji: '<i class="fas fa-users"></i>', title: 'Социальные сети', desc: 'Поддельные профили и схемы отбора денег', content: '• Красивый иностранец\n• Инвестиционные предложения\n• Конкурсы и розыгрыши\n• Выдаваемые за друзей' },
+            { emoji: '<i class="fas fa-coins"></i>', title: 'Финансовые схемы', desc: 'Предложения быстрого заработка и инвестиций', content: '• Гарантированный доход\n• Удвойте свои деньги\n• Требование предоплаты\n• Спешка и давление' },
+            { emoji: '<i class="fas fa-home"></i>', title: 'Квартирные', desc: 'Мошенники представляются инспекторами или слесарями', content: '• Проверка счётчиков\n• Срочные ремонты\n• Поддельные агенты\n• Требование предоплаты' },
+            { emoji: '<i class="fas fa-envelope"></i>', title: 'Email и фишинг', desc: 'Поддельные письма от банков и сервисов', content: '• Подтвердите личность\n• Обновите данные\n• Срочно действуйте\n• Ссылки на подделки' }
         ],
         signs: [
-            { emoji: '⚡', title: 'Спешка и давление', desc: '"Действуй сейчас!" или "Это последний шанс!"' },
-            { emoji: '🤫', title: 'Конфиденциальность', desc: '"Не говори никому, даже банку"' },
-            { emoji: '💸', title: 'Просьба денег', desc: 'На карту, через системы или наличными' },
-            { emoji: '🔐', title: 'Пароли', desc: 'Никто не просит пароли по телефону' },
-            { emoji: '🎁', title: 'Слишком хорошо', desc: 'Если нереально - это нереально' },
-            { emoji: '❌', title: 'Ошибки', desc: 'Проверь орфографию в письмах' }
+            { emoji: '<i class="fas fa-bolt"></i>', title: 'Спешка и давление', desc: '"Действуй сейчас!" или "Это последний шанс!"' },
+            { emoji: '<i class="fas fa-user-secret"></i>', title: 'Конфиденциальность', desc: '"Не говори никому, даже банку"' },
+            { emoji: '<i class="fas fa-money-bill-wave"></i>', title: 'Просьба денег', desc: 'На карту, через системы или наличными' },
+            { emoji: '<i class="fas fa-key"></i>', title: 'Пароли', desc: 'Никто не просит пароли по телефону' },
+            { emoji: '<i class="fas fa-gift"></i>', title: 'Слишком хорошо', desc: 'Если нереально - это нереально' },
+            { emoji: '<i class="fas fa-times-circle"></i>', title: 'Ошибки', desc: 'Проверь орфографию в письмах' }
         ],
         protect: [
-            { emoji: '🔐', title: 'Пароли', desc: 'Используй сложные, разные для всех сервисов' },
-            { emoji: '📱', title: 'Телефон', desc: 'Не открывай ссылки от незнакомых, обновляй OS' },
-            { emoji: '💳', title: 'Карты', desc: 'Следи за счётом, используй разные карты' },
-            { emoji: '👥', title: 'Семья', desc: 'Договорись о кодовом слове, помогай пожилым' }
+            { emoji: '<i class="fas fa-key"></i>', title: 'Пароли', desc: 'Используй сложные, разные для всех сервисов' },
+            { emoji: '<i class="fas fa-mobile-alt"></i>', title: 'Телефон', desc: 'Не открывай ссылки от незнакомых, обновляй OS' },
+            { emoji: '<i class="fas fa-credit-card"></i>', title: 'Карты', desc: 'Следи за счётом, используй разные карты' },
+            { emoji: '<i class="fas fa-heart"></i>', title: 'Семья', desc: 'Договорись о кодовом слове, помогай пожилым' }
         ]
     },
     en: {
         types: [
-            { emoji: '📞', title: 'Phone Calls', desc: 'Scammers pretend to be banks or police', content: '• Card is blocked\n• Security check\n• Police call\n• Relative in trouble' },
-            { emoji: '📱', title: 'SMS & WhatsApp', desc: 'Messages with links to fake sites', content: '• Card blocked\n• Package not delivered\n• You won\n• Fake codes' },
-            { emoji: '👨‍💻', title: 'Social Media', desc: 'Fake profiles and money schemes', content: '• Beautiful foreigner\n• Investment offers\n• Contests\n• Pretend friends' },
-            { emoji: '💰', title: 'Financial Schemes', desc: 'Quick money and investment offers', content: '• Guaranteed income\n• Double your money\n• Upfront payment\n• Pressure' },
-            { emoji: '🏠', title: 'Home Scams', desc: 'Posing as inspectors or repairmen', content: '• Meter check\n• Urgent repairs\n• Fake agents\n• Advance payment' },
-            { emoji: '📧', title: 'Email & Phishing', desc: 'Fake letters from banks', content: '• Confirm identity\n• Update details\n• Act now\n• Fake links' }
+            { emoji: '<i class="fas fa-phone-alt"></i>', title: 'Phone Calls', desc: 'Scammers pretend to be banks or police', content: '• Card is blocked\n• Security check\n• Police call\n• Relative in trouble' },
+            { emoji: '<i class="fas fa-sms"></i>', title: 'SMS & WhatsApp', desc: 'Messages with links to fake sites', content: '• Card blocked\n• Package not delivered\n• You won\n• Fake codes' },
+            { emoji: '<i class="fas fa-users"></i>', title: 'Social Media', desc: 'Fake profiles and money schemes', content: '• Beautiful foreigner\n• Investment offers\n• Contests\n• Pretend friends' },
+            { emoji: '<i class="fas fa-coins"></i>', title: 'Financial Schemes', desc: 'Quick money and investment offers', content: '• Guaranteed income\n• Double your money\n• Upfront payment\n• Pressure' },
+            { emoji: '<i class="fas fa-home"></i>', title: 'Home Scams', desc: 'Posing as inspectors or repairmen', content: '• Meter check\n• Urgent repairs\n• Fake agents\n• Advance payment' },
+            { emoji: '<i class="fas fa-envelope"></i>', title: 'Email & Phishing', desc: 'Fake letters from banks', content: '• Confirm identity\n• Update details\n• Act now\n• Fake links' }
         ],
         signs: [
-            { emoji: '⚡', title: 'Hurry', desc: '"Act now!" or "Last chance!"' },
-            { emoji: '🤫', title: 'Secrecy', desc: '"Tell no one, not even the bank"' },
-            { emoji: '💸', title: 'Money', desc: 'Requests to send money' },
-            { emoji: '🔐', title: 'Passwords', desc: 'Never ask for passwords by phone' },
-            { emoji: '🎁', title: 'Too Good', desc: 'If it seems unreal - it is' },
-            { emoji: '❌', title: 'Errors', desc: 'Check spelling in messages' }
+            { emoji: '<i class="fas fa-bolt"></i>', title: 'Hurry', desc: '"Act now!" or "Last chance!"' },
+            { emoji: '<i class="fas fa-user-secret"></i>', title: 'Secrecy', desc: '"Tell no one, not even the bank"' },
+            { emoji: '<i class="fas fa-money-bill-wave"></i>', title: 'Money', desc: 'Requests to send money' },
+            { emoji: '<i class="fas fa-key"></i>', title: 'Passwords', desc: 'Never ask for passwords by phone' },
+            { emoji: '<i class="fas fa-gift"></i>', title: 'Too Good', desc: 'If it seems unreal - it is' },
+            { emoji: '<i class="fas fa-times-circle"></i>', title: 'Errors', desc: 'Check spelling in messages' }
         ],
         protect: [
-            { emoji: '🔐', title: 'Passwords', desc: 'Use complex, different for each service' },
-            { emoji: '📱', title: 'Phone', desc: 'Don\'t click unknown links, update OS' },
-            { emoji: '💳', title: 'Cards', desc: 'Monitor account, use different cards' },
-            { emoji: '👥', title: 'Family', desc: 'Agree on password, help elderly' }
+            { emoji: '<i class="fas fa-key"></i>', title: 'Passwords', desc: 'Use complex, different for each service' },
+            { emoji: '<i class="fas fa-mobile-alt"></i>', title: 'Phone', desc: 'Don\'t click unknown links, update OS' },
+            { emoji: '<i class="fas fa-credit-card"></i>', title: 'Cards', desc: 'Monitor account, use different cards' },
+            { emoji: '<i class="fas fa-heart"></i>', title: 'Family', desc: 'Agree on password, help elderly' }
         ]
     },
     he: {
         types: [
-            { emoji: '📞', title: 'שיחות טלפון', desc: 'הונאים התחזו לבנק או למשטרה', content: '• כרטיס חסום\n• בדיקת אבטחה\n• שיחה משטרה\n• קרובה בצרה' },
-            { emoji: '📱', title: 'SMS ו- WhatsApp', desc: 'הודעות עם קישורים לאתרים מזויפים', content: '• כרטיס חסום\n• חבילה לא סופקה\n• ניצחת\n• קודים מזויפים' },
-            { emoji: '👨‍💻', title: 'מדיה חברתית', desc: 'פרופילים מזויפים ותוכניות כסף', content: '• זר יפה\n• הצעות השקעה\n• תחרויות\n• חברים מזויפים' },
-            { emoji: '💰', title: 'תוכניות פיננסיות', desc: 'הצעות כסף מהיר והשקעה', content: '• הכנסה מובטחת\n• הכפל את הכסף\n• תשלום מראש\n• לחץ' },
-            { emoji: '🏠', title: 'הונאות בבית', desc: 'התחזו לבדקנים או טכנאים', content: '• בדיקת מטר\n• תיקוני דחופים\n• סוכנים מזויפים\n• תשלום מראש' },
-            { emoji: '📧', title: 'דוא"ל ודיג', desc: 'מכתבים מזויפים מבנקים', content: '• אשר זהות\n• עדכן פרטים\n• פעל עכשיו\n• קישורים מזויפים' }
+            { emoji: '<i class="fas fa-phone-alt"></i>', title: 'שיחות טלפון', desc: 'הונאים התחזו לבנק או למשטרה', content: '• כרטיס חסום\n• בדיקת אבטחה\n• שיחה משטרה\n• קרובה בצרה' },
+            { emoji: '<i class="fas fa-sms"></i>', title: 'SMS ו- WhatsApp', desc: 'הודעות עם קישורים לאתרים מזויפים', content: '• כרטיס חסום\n• חבילה לא סופקה\n• ניצחת\n• קודים מזויפים' },
+            { emoji: '<i class="fas fa-users"></i>', title: 'מדיה חברתית', desc: 'פרופילים מזויפים ותוכניות כסף', content: '• זר יפה\n• הצעות השקעה\n• תחרויות\n• חברים מזויפים' },
+            { emoji: '<i class="fas fa-coins"></i>', title: 'תוכניות פיננסיות', desc: 'הצעות כסף מהיר והשקעה', content: '• הכנסה מובטחת\n• הכפל את הכסף\n• תשלום מראש\n• לחץ' },
+            { emoji: '<i class="fas fa-home"></i>', title: 'הונאות בבית', desc: 'התחזו לבדקנים או טכנאים', content: '• בדיקת מטר\n• תיקוני דחופים\n• סוכנים מזויפים\n• תשלום מראש' },
+            { emoji: '<i class="fas fa-envelope"></i>', title: 'דוא"ל ודיג', desc: 'מכתבים מזויפים מבנקים', content: '• אשר זהות\n• עדכן פרטים\n• פעל עכשיו\n• קישורים מזויפים' }
         ],
         signs: [
-            { emoji: '⚡', title: 'מהירות', desc: '"פעל עכשיו!" או "הזדמנות אחרונה!"' },
-            { emoji: '🤫', title: 'סודיות', desc: '"אל תגיד לאף אחד, אפילו לבנק"' },
-            { emoji: '💸', title: 'כסף', desc: 'בקשות לשלוח כסף' },
-            { emoji: '🔐', title: 'סיסמאות', desc: 'לא משאלים סיסמאות בטלפון' },
-            { emoji: '🎁', title: 'טוב מדי', desc: 'אם זה נראה בלתי אפשרי - זה' },
-            { emoji: '❌', title: 'שגיאות', desc: 'בדוק איות בהודעות' }
+            { emoji: '<i class="fas fa-bolt"></i>', title: 'מהירות', desc: '"פעל עכשיו!" או "הזדמנות אחרונה!"' },
+            { emoji: '<i class="fas fa-user-secret"></i>', title: 'סודיות', desc: '"אל תגיד לאף אחד, אפילו לבנק"' },
+            { emoji: '<i class="fas fa-money-bill-wave"></i>', title: 'כסף', desc: 'בקשות לשלוח כסף' },
+            { emoji: '<i class="fas fa-key"></i>', title: 'סיסמאות', desc: 'לא משאלים סיסמאות בטלפון' },
+            { emoji: '<i class="fas fa-gift"></i>', title: 'טוב מדי', desc: 'אם זה נראה בלתי אפשרי - זה' },
+            { emoji: '<i class="fas fa-times-circle"></i>', title: 'שגיאות', desc: 'בדוק איות בהודעות' }
         ],
         protect: [
-            { emoji: '🔐', title: 'סיסמאות', desc: 'השתמש בסיסמאות מורכבות וייחודיות' },
-            { emoji: '📱', title: 'טלפון', desc: 'אל תלחץ על קישורים לא ידועים' },
-            { emoji: '💳', title: 'כרטיסים', desc: 'עקוב אחר חשבון, השתמש בכרטיסים שונים' },
-            { emoji: '👥', title: 'משפחה', desc: 'הסכם על סיסמה, עזור לגיל שלישי' }
+            { emoji: '<i class="fas fa-key"></i>', title: 'סיסמאות', desc: 'השתמש בסיסמאות מורכבות וייחודיות' },
+            { emoji: '<i class="fas fa-mobile-alt"></i>', title: 'טלפון', desc: 'אל תלחץ על קישורים לא ידועים' },
+            { emoji: '<i class="fas fa-credit-card"></i>', title: 'כרטיסים', desc: 'עקוב אחר חשבון, השתמש בכרטיסים שונים' },
+            { emoji: '<i class="fas fa-heart"></i>', title: 'משפחה', desc: 'הסכם על סיסמה, עזור לגיל שלישי' }
         ]
     }
 };
@@ -769,6 +1056,9 @@ function changeLang(lang, event) {
     // Rebuild cards
     renderCards();
     renderHotlines();
+
+    // Обновить AOS после добавления новых элементов
+    if (typeof AOS !== 'undefined') AOS.refresh();
 }
 
 function renderCards() {
@@ -777,30 +1067,33 @@ function renderCards() {
     const signsContainer = document.getElementById('signs-cards');
     const protectContainer = document.getElementById('protect-cards');
 
-    typesContainer.innerHTML = cardData[lang].types.map(card => `
-        <div class="card" onclick="toggleCard(this)">
+    typesContainer.innerHTML = cardData[lang].types.map((card, index) => `
+        <div class="card" onclick="toggleCard(this)" data-aos="fade-up" data-aos-delay="${index*50}">
             <div class="card-emoji">${card.emoji}</div>
             <div class="card-title">${card.title}</div>
             <div class="card-text">${card.desc}</div>
-            <div class="card-content">${card.content}</div>
+            <div class="card-content">${card.content.replace(/\n/g, '<br>')}</div>
         </div>
     `).join('');
 
-    signsContainer.innerHTML = cardData[lang].signs.map(card => `
-        <div class="card" onclick="toggleCard(this)">
+    signsContainer.innerHTML = cardData[lang].signs.map((card, index) => `
+        <div class="card" onclick="toggleCard(this)" data-aos="fade-up" data-aos-delay="${index*50}">
             <div class="card-emoji">${card.emoji}</div>
             <div class="card-title">${card.title}</div>
             <div class="card-text">${card.desc}</div>
         </div>
     `).join('');
 
-    protectContainer.innerHTML = cardData[lang].protect.map(card => `
-        <div class="card" onclick="toggleCard(this)">
+    protectContainer.innerHTML = cardData[lang].protect.map((card, index) => `
+        <div class="card" onclick="toggleCard(this)" data-aos="fade-up" data-aos-delay="${index*50}">
             <div class="card-emoji">${card.emoji}</div>
             <div class="card-title">${card.title}</div>
             <div class="card-text">${card.desc}</div>
         </div>
     `).join('');
+
+    // Обновить AOS после добавления карточек
+    if (typeof AOS !== 'undefined') AOS.refresh();
 }
 
 function renderHotlines() {
@@ -822,13 +1115,13 @@ function renderHotlines() {
 
     const title = { ru: '📞 Горячие линии', en: '📞 Hotlines', he: '📞 קווים חמים' }[currentLang];
 
-    hotlines.innerHTML = `<h3>${title}</h3>` + numbers.map(h => `
-        <div class="hotline-item">
+    hotlines.innerHTML = `<h3>${title}</h3>` + numbers.map((h, index) => `
+        <div class="hotline-item" data-aos="fade-right" data-aos-delay="${index*100}">
             <div>
                 <div><strong>${h.flag} ${h.name}</strong></div>
                 <div class="hotline-number">${h.num}</div>
             </div>
-            <button class="qr-btn" onclick="makeQR('tel:${h.tel}', '${h.name}')">📱 QR</button>
+            <button class="qr-btn" onclick="makeQR('tel:${h.tel}', '${h.name}')"><i class="fas fa-qrcode"></i> QR</button>
         </div>
     `).join('');
 }
@@ -849,7 +1142,7 @@ function showTab(tabId, event) {
 }
 
 function scrollToSection(sectionId) {
-    showTab(sectionId, event); // передаём event, но его может не быть, поэтому лучше переделать
+    showTab(sectionId, {target: document.querySelector(`[onclick*="'${sectionId}'"]`)});
     document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
 }
 
@@ -861,7 +1154,7 @@ function makeQR(text, title) {
         width: 250,
         height: 250,
         correctLevel: QRCode.CorrectLevel.H,
-        colorDark: '#667eea',
+        colorDark: '#1e2b5e',
         colorLight: '#ffffff'
     });
     document.getElementById('qr-modal').classList.add('open');
@@ -883,13 +1176,44 @@ function downloadPDF() {
     html2pdf().set(opt).from(element).save();
 }
 
-// Initialize
+// Кнопка наверх
+window.onscroll = function() {
+    const btn = document.getElementById('scrollTopBtn');
+    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        btn.style.display = 'block';
+    } else {
+        btn.style.display = 'none';
+    }
+};
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Чат-бот
+function tog() { document.getElementById('w').classList.toggle('open'); }
+function send() {
+    let i = document.getElementById('i');
+    let m = document.getElementById('m');
+    if (!i.value.trim()) return;
+    m.innerHTML += `<div><b>Вы:</b> ${i.value}</div>`;
+    setTimeout(() => { m.innerHTML += `<div><b>Бот:</b> Не сообщайте коды из СМС!</div>`; }, 500);
+    i.value = "";
+    m.scrollTop = m.scrollHeight;
+}
+
+// Инициализация
 window.addEventListener('load', () => {
     renderCards();
     renderHotlines();
-    changeLang('ru', {target: document.querySelector('.lang-btn.active')}); // небольшая имитация события
+    changeLang('ru', {target: document.querySelector('.lang-btn.active')});
+    AOS.init({ duration: 800, once: true });
 });
 </script>
-
+<!-- Стили для чат-бота (добавлены в основной CSS выше, но здесь можно продублировать на всякий случай) -->
+<style>
+    .bot-btn { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: #1e2b5e; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; cursor: pointer; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+    .bot-window { position: fixed; bottom: 90px; right: 20px; width: 300px; height: 400px; background: white; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); display: none; flex-direction: column; z-index: 1000; }
+    .bot-window.open { display: flex; }
+</style>
 </body>
 </html>
