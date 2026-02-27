@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STOP SCAM — Интерактивный справочник</title>
+    <!-- Код подтверждения Яндекс.Вебмастер -->
+    <meta name="yandex-verification" content="8c6c5cabd688e5fd" />
     <!-- Шрифт Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -790,7 +792,7 @@
             </div>
         </div>
         <div class="video-box">
-            <!-- Замените site_shield.mp4 на своё видео из Grok -->
+            <!-- Видео site_shield.mp4 должно лежать в той же папке, что и index.html -->
             <video width="100%" autoplay loop muted playsinline>
                 <source src="site_shield.mp4" type="video/mp4">
                 Ваш браузер не поддерживает видео.
@@ -829,7 +831,7 @@
     <div id="types" class="section active">
         <h2 id="h-types"><i class="fas fa-list"></i> Основные типы мошенничества</h2>
         <div class="cards" id="types-cards"></div>
-        <!-- Партнёрский блок внутри types (можно переместить в другое место) -->
+        <!-- Партнёрский блок внутри types -->
         <div class="partner-section" data-aos="fade-up">
             <h3 id="partner-title">🛡️ Надёжная защита от партнёров</h3>
             <p id="partner-desc">Проверенные антивирусы, которые мы рекомендуем:</p>
@@ -915,6 +917,7 @@
         </div>
         <div class="footer-col">
             <h4 id="footer-support">Поддержать проект</h4>
+            <!-- Замените "ваш-логин" на ваш реальный логин на Boosty -->
             <a href="https://boosty.to/ваш-логин" target="_blank" class="support-btn"><i class="fas fa-mug-hot"></i> Купить кофе</a>
         </div>
     </div>
@@ -945,7 +948,7 @@
 
 <!-- Скрипты -->
 <script>
-// ==================== ПЕРЕВОДЫ (ПОЛНЫЕ) ====================
+// ==================== ПЕРЕВОДЫ ====================
 const translations = {
     ru: {
         'hero-title': '🛡️ STOP SCAM',
@@ -1057,7 +1060,7 @@ const translations = {
     }
 };
 
-// ==================== ДАННЫЕ КАРТОЧЕК (без изменений, но убедимся, что везде есть иконки) ====================
+// ==================== ДАННЫЕ КАРТОЧЕК ====================
 const cardData = {
     ru: {
         types: [
@@ -1147,13 +1150,11 @@ function changeLang(lang, event) {
         document.body.classList.remove('rtl');
     }
 
-    // Update all text by ID
     for (const [key, value] of Object.entries(translations[lang])) {
         const el = document.getElementById(key);
-        if (el) el.innerHTML = value; // innerHTML чтобы иконки работали
+        if (el) el.innerHTML = value;
     }
 
-    // Rebuild cards
     renderCards();
     renderHotlines();
 
@@ -1239,7 +1240,6 @@ function showTab(tabId, event) {
 }
 
 function scrollToSection(sectionId) {
-    // Найти кнопку таба и эмулировать событие
     const tabButton = document.querySelector(`.nav-tab[onclick*="'${sectionId}'"]`);
     if (tabButton) {
         showTab(sectionId, { target: tabButton });
@@ -1279,7 +1279,6 @@ function downloadPDF() {
     html2pdf().set(opt).from(element).save();
 }
 
-// Кнопка наверх
 window.onscroll = function() {
     const btn = document.getElementById('scrollTopBtn');
     if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
@@ -1292,7 +1291,6 @@ function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Чат-бот
 function tog() { document.getElementById('w').classList.toggle('open'); }
 function send() {
     let i = document.getElementById('i');
@@ -1304,17 +1302,14 @@ function send() {
     m.scrollTop = m.scrollHeight;
 }
 
-// Инициализация
 window.addEventListener('load', () => {
     renderCards();
     renderHotlines();
-    // Установить активный язык (первый)
     const activeBtn = document.querySelector('.lang-btn.active');
     if (activeBtn) changeLang('ru', { target: activeBtn });
     AOS.init({ duration: 800, once: true });
 });
 </script>
-<!-- Стили для чат-бота (уже есть, но продублируем для уверенности) -->
 <style>
     .bot-btn { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: #1e2b5e; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; cursor: pointer; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
     .bot-window { position: fixed; bottom: 90px; right: 20px; width: 300px; height: 400px; background: white; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); display: none; flex-direction: column; z-index: 1000; }
